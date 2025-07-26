@@ -8,6 +8,6 @@ namespace Organic.Domain.Interface
 {
     public interface IGenricQueryRepository<T> where T : class
     {
-        Task<T> getall();
+        Task<List<T>> Getall();
     }
 }
