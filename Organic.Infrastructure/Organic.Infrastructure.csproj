@@ -29,4 +29,8 @@
     <Folder Include="Repositories\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Organic.Domain\Organic.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
