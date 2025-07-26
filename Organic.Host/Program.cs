@@ -1,6 +1,10 @@
 
 using Microsoft.EntityFrameworkCore;
+using Organic.Domain.Interface;
+using Organic.Domain.Interface.UserInterfase;
 using Organic.Infrastructure.Context;
+using Organic.Infrastructure.Repositories.GenericRepository;
+using Organic.Infrastructure.Repositories.UserRepository;
 
 namespace Organic.Host
 {
@@ -20,6 +24,12 @@ namespace Organic.Host
             // Database Context Settings
             builder.Services.AddDbContext<DataBaseContext>(options =>
              options.UseSqlServer(builder.Configuration.GetConnectionString("Organic")));
+
+            //Repository and IRepository
+            builder.Services.AddScoped(typeof(IGenricCommandRepository<>), typeof(GenricCommandRepository<>));
+            builder.Services.AddScoped(typeof(IGenricQueryRepository<>), typeof(GenricQueryRepository<>));
+            builder.Services.AddScoped<IGetUserQueryRepository, GetUserQueryRepository>();
+
 
 
             var app = builder.Build();
