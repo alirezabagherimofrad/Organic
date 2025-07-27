@@ -1,18 +1,28 @@
-﻿using MediatR;
+﻿
+using Mapster;
+using MediatR;
 using Organic.Application.Command.User;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Organic.Domain.Interface.UnitOfWorkInterface;
+using Organic.Domain.Model;
+
 
 namespace Organic.Application.CommandHandler
 {
     public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, string>
     {
-        public Task<string> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+        private readonly IUnitOfWork _unitOfWork;
+        public RegisterUserCommandHandler (IUnitOfWork unitOfWork)
         {
-            throw new NotImplementedException();
+            _unitOfWork = unitOfWork;
+            
+        }
+
+        public async Task<string> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+        {
+            var user = request.Adapt<UserModel>();
+            await _unitOfWork.CommandRepository<UserModel>().Add(user);
+            await _unitOfWork.SaveChangeAsync();
+            return user.Id.ToString();
         }
     }
 }

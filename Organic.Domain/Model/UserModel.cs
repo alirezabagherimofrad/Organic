@@ -33,7 +33,7 @@ namespace Organic.Domain.Model
 
 
 
-        private UserModel() { }
+        private  UserModel() { }
     }
     public enum SelectGender
     {
