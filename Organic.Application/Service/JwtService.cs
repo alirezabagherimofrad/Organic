@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Organic.Application.DTO;
 using Organic.Application.Interface;
@@ -17,13 +18,11 @@ namespace Organic.Application.Service
     public class JwtService : IJwtService
     {
         private readonly JwtSettings _jwtSettings;
-
         private readonly IGetUserQueryRepository _getUserQueryRepository;
 
-        public JwtService(JwtSettings jwtSettings, IGetUserQueryRepository getUserQueryRepository)
+        public JwtService(IOptions<JwtSettings> jwtOptions, IGetUserQueryRepository getUserQueryRepository)
         {
-            _jwtSettings = jwtSettings;
-
+            _jwtSettings = jwtOptions.Value;
             _getUserQueryRepository = getUserQueryRepository;
         }
 

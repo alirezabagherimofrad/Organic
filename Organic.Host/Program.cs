@@ -9,6 +9,8 @@ using Organic.Application.Behaviors;
 using Organic.Application.Command.User;
 using Organic.Application.CommandHandler;
 using Organic.Application.DTO;
+using Organic.Application.Interface;
+using Organic.Application.Service;
 using Organic.Domain.Interface;
 using Organic.Domain.Interface.UnitOfWorkInterface;
 using Organic.Domain.Interface.UserInterfase;
@@ -61,6 +63,9 @@ namespace Organic.Host
 
             //unit of work
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            builder.Services.AddScoped<IJwtService, JwtService>();
+
 
             // Jwt Token Settings
             var jwtSettingsSection = builder.Configuration.GetSection("Jwt");

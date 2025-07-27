@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Organic.Application.Command.User;
 using Organic.Application.DTO;
+using static Organic.Application.DTO.LoginResultDto;
 using static Organic.Application.DTO.UserRegisterDTO;
 
 namespace Organic.Host.Controllers
@@ -27,10 +28,9 @@ namespace Organic.Host.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> LoginUser([FromBody] LoginResultDto loginResultDto)
+        public async Task<IActionResult> LoginUser([FromBody] LoginUserCommand loginUserCommand)
         {
-            var command = loginResultDto.Adapt<LoginUserCommand>();
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(loginUserCommand);
             return Ok(result);
         }
     }
