@@ -19,10 +19,10 @@ namespace Organic.Application.CommandHandler
 
         public async Task<string> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            var check = await _unitOfWork.UserQueryRepository().GetByPassword(request.Password);
+            var check = await _unitOfWork.UserQueryRepository().GetByEmail(request.Email);
             if(check != null)
             {
-                return "رمز عبور تکراری هست.";
+                return "ایمیل تکراری است.";
             }
             var user = request.Adapt<UserModel>();
             await _unitOfWork.CommandRepository<UserModel>().Add(user);

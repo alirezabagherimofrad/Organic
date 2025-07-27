@@ -22,5 +22,8 @@ namespace Organic.Infrastructure.Repositories.UserRepository
             await _context.userModels.FirstOrDefaultAsync(x => x.Password == password);
 
         public async Task<UserModel?> GetById(Guid id) => await _context.userModels.FindAsync(id);
+
+        public async Task<UserModel?> GetByEmail(string email) =>
+            await _context.userModels.FirstOrDefaultAsync(x => x.Email == email);
     }
 }
