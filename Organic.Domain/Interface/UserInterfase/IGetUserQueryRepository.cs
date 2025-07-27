@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Organic.Domain.Interface.UserInterfase
 {
-    public interface IGetUserQueryRepository
+    public interface IGetUserQueryRepository : IGenricQueryRepository<UserModel>
     {
         Task<UserModel?> GetByPassword(string password);
         Task<UserModel?> GetByEmail(string email);

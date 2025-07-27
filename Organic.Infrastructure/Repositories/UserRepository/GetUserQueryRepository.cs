@@ -3,6 +3,7 @@ using Organic.Domain.Interface;
 using Organic.Domain.Interface.UserInterfase;
 using Organic.Domain.Model;
 using Organic.Infrastructure.Context;
+using Organic.Infrastructure.Repositories.GenericRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,10 @@ using System.Threading.Tasks;
 
 namespace Organic.Infrastructure.Repositories.UserRepository
 {
-    public class GetUserQueryRepository : IGetUserQueryRepository
+    public class GetUserQueryRepository : GenricQueryRepository<UserModel>, IGetUserQueryRepository
     {
         private readonly DataBaseContext _context;
-        public GetUserQueryRepository(DataBaseContext dataBaseContext)
+        public GetUserQueryRepository(DataBaseContext dataBaseContext) : base(dataBaseContext)
         {
             _context = dataBaseContext;
         }

@@ -19,5 +19,10 @@ namespace Organic.Infrastructure.Repositories.GenericRepository
 
         public async Task<List<T>> Getall() =>
             await _context.Set<T>().AsNoTracking().ToListAsync();
+
+        public async Task<T?> GetByIdAsync(Guid Id)
+        {
+            return await _context.Set<T>().FindAsync(Id);
+        }
     }
 }

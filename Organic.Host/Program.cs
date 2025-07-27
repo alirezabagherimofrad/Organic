@@ -1,10 +1,16 @@
 ﻿
 using Mapster;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Organic.Application.Behaviors;
 using Organic.Application.Command.User;
 using Organic.Application.CommandHandler;
+using Organic.Application.DTO;
+using Organic.Application.Interface;
+using Organic.Application.Service;
 using Organic.Domain.Interface;
 using Organic.Domain.Interface.UnitOfWorkInterface;
 using Organic.Domain.Interface.UserInterfase;
@@ -14,7 +20,10 @@ using Organic.Infrastructure.DataSeeder;
 using Organic.Infrastructure.Middlewares;
 using Organic.Infrastructure.Repositories.GenericRepository;
 using Organic.Infrastructure.Repositories.UserRepository;
+using Organic.Infrastructure.Settings;
 using Organic.Infrastructure.UnitOfWork;
+using System.Text;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Organic.Host
 {
@@ -39,6 +48,8 @@ namespace Organic.Host
             builder.Services.AddScoped(typeof(IGenricCommandRepository<>), typeof(GenricCommandRepository<>));
             builder.Services.AddScoped(typeof(IGenricQueryRepository<>), typeof(GenricQueryRepository<>));
             builder.Services.AddScoped<IGetUserQueryRepository, GetUserQueryRepository>();
+            builder.Services.AddScoped<ICrudUserRepository, CrudUserRepository>();
+
 
             //Behavior
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
@@ -48,9 +59,80 @@ namespace Organic.Host
 
             //command , commandHandler
             builder.Services.AddScoped<IRequestHandler<RegisterUserCommand, string>, RegisterUserCommandHandler>();
+            builder.Services.AddScoped<IRequestHandler<LoginUserCommand, LoginResultDto>, LoginUserCommandHandler>();
 
             //unit of work
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            builder.Services.AddScoped<IJwtService, JwtService>();
+
+
+            // Jwt Token Settings
+            var jwtSettingsSection = builder.Configuration.GetSection("Jwt");
+            builder.Services.Configure<JwtSettings>(jwtSettingsSection);
+            var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(jwtSettings.Key)
+                    ),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
+
+            // Swagger Settings
+            builder.Services.AddEndpointsApiExplorer();
+
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Organic API",
+                    Version = "v1"
+                });
+
+                // تعریف نوع احراز هویت JWT Bearer
+                var jwtSecurityScheme = new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Description = "Enter JWT token like: Bearer {your token}",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                };
+
+                options.AddSecurityDefinition("Bearer", jwtSecurityScheme);
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                     {
+                       jwtSecurityScheme,
+                       Array.Empty<string>()
+                     }
+                });
+            });
+
 
             TypeAdapterConfig<RegisterUserCommand, UserModel>.NewConfig()
                 .ConstructUsing(src => new UserModel(
