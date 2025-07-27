@@ -10,5 +10,6 @@ namespace Organic.Domain.Interface.UserInterfase
     public interface IGetUserQueryRepository
     {
         Task<UserModel?> GetByPassword(string password);
+        Task<UserModel?> GetById(Guid id);
     }
 }

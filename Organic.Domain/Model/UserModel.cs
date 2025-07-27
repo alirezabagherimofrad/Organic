@@ -31,9 +31,17 @@ namespace Organic.Domain.Model
 
         public UserImageModel Image { get; private set; }
 
-
-
         private  UserModel() { }
+
+        public  void update(string first_Name, string last_Name, string phoneNumber, string email, string password, SelectGender gender)
+        {
+            First_Name = first_Name;
+            Last_Name = last_Name;
+            PhoneNumber = phoneNumber;
+            Email = email;
+            Password = password;
+            Gender = gender;
+        }
     }
     public enum SelectGender
     {
@@ -43,4 +51,6 @@ namespace Organic.Domain.Model
         [Display(Name = "Woman")]
         Woman
     }
+
+
 }

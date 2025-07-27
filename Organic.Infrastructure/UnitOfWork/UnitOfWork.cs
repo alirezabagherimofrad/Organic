@@ -1,5 +1,6 @@
 ﻿using Organic.Domain.Interface;
 using Organic.Domain.Interface.UnitOfWorkInterface;
+using Organic.Domain.Interface.UserInterfase;
 using Organic.Infrastructure.Context;
 using Organic.Infrastructure.Repositories.GenericRepository;
 using System;
@@ -15,10 +16,12 @@ namespace Organic.Infrastructure.UnitOfWork
         private readonly DataBaseContext _context;
 
         private readonly Dictionary<Type, object> _repositories = new();
+        private readonly IGetUserQueryRepository _userQueryRepository;
 
-        public UnitOfWork(DataBaseContext context)
+        public UnitOfWork(DataBaseContext context, IGetUserQueryRepository userQueryRepository)
         {
             _context = context;
+            _userQueryRepository = userQueryRepository;
         }
 
         public IGenricCommandRepository<T> CommandRepository<T>() where T : class
@@ -45,6 +48,11 @@ namespace Organic.Infrastructure.UnitOfWork
             return (IGenricQueryRepository<T>)_repositories[typeof(T)];
         }
 
+        public IGetUserQueryRepository UserQueryRepository()
+        {
+            return _userQueryRepository;
+        }
+
         public void Dispose()
         {
             _context.Dispose();
@@ -54,5 +62,7 @@ namespace Organic.Infrastructure.UnitOfWork
         {
             return await _context.SaveChangesAsync();
         }
+
+
     }
 }

@@ -20,5 +20,7 @@ namespace Organic.Infrastructure.Repositories.UserRepository
         }
         public async Task<UserModel?> GetByPassword(string password) =>
             await _context.userModels.FirstOrDefaultAsync(x => x.Password == password);
+
+        public async Task<UserModel?> GetById(Guid id) => await _context.userModels.FindAsync(id);
     }
 }
