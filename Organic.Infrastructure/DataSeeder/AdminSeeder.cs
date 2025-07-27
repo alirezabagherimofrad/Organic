@@ -18,11 +18,11 @@ namespace Organic.Infrastructure.DataSeeder
 
             if (!AdminExists)
             {
-                var admin = new UserModel(
+                var admin = new UserModel(first_Name: "Alireza", last_Name: "Bagheri", phoneNumber: "09397438089", email: "alirezabagherimofrad@gmail.com", password: "Alireza138327445", SelectGender.Man);
 
-                   
+                await context.AddAsync(admin);
 
-                );
+                await context.SaveChangesAsync();
             }
         }
     }

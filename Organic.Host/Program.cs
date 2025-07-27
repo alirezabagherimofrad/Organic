@@ -6,6 +6,7 @@ using Organic.Application.CommandHandler;
 using Organic.Domain.Interface;
 using Organic.Domain.Interface.UserInterfase;
 using Organic.Infrastructure.Context;
+using Organic.Infrastructure.DataSeeder;
 using Organic.Infrastructure.Middlewares;
 using Organic.Infrastructure.Repositories.GenericRepository;
 using Organic.Infrastructure.Repositories.UserRepository;
@@ -14,7 +15,7 @@ namespace Organic.Host
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -40,7 +41,6 @@ namespace Organic.Host
             // ثبت MediatR
             builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommandHandler).Assembly));
 
-
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -50,10 +50,21 @@ namespace Organic.Host
                 app.UseSwaggerUI();
             }
 
+            //Seed Data
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<DataBaseContext>();
+
+                await AdminSeeder.SeedUserAsync(context);
+            }
+
             app.UseHttpsRedirection();
+
             app.UseMiddleware<ExceptionHandlingMiddleware>();
+
             app.UseAuthorization();
 
+            app.UseAuthentication();
 
             app.MapControllers();
 
