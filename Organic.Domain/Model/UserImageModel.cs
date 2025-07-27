@@ -9,11 +9,20 @@ namespace Organic.Domain.Model
 {
     public class UserImageModel
     {
+        public UserImageModel(Guid id, string filePath, Guid userId)
+        {
+            Id = Guid.NewGuid();
+            FilePath = filePath;
+            UserId = userId;
+        }
+
         public Guid Id { get; set; }
 
         public string FilePath { get; set; }
 
         public Guid UserId { get; set; }
         public UserModel User { get; set; }
+
+        private UserImageModel() { }
     }
 }

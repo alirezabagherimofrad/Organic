@@ -8,15 +8,16 @@ namespace Organic.Application.DTO
 {
     public class UserRegisterDTO
     {
-        public string Name { get; set; }
+        public string First_Name { get; set; }
+        public string Last_Name { get; set; }
+
         public string PhoneNumber { get; set; }
-        public string NationalCode { get; set; }
 
         public sealed record UserRegisterParameter
             (
-                string Name,
-                string PhoneNumber,
-                string NationaCode
+                string First_Name,
+                string Last_Name,
+                string PhoneNumber
             );
     }
 
