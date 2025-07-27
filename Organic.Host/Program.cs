@@ -1,8 +1,12 @@
-
+﻿
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Organic.Application.Behaviors;
+using Organic.Application.CommandHandler;
 using Organic.Domain.Interface;
 using Organic.Domain.Interface.UserInterfase;
 using Organic.Infrastructure.Context;
+using Organic.Infrastructure.Middlewares;
 using Organic.Infrastructure.Repositories.GenericRepository;
 using Organic.Infrastructure.Repositories.UserRepository;
 
@@ -30,6 +34,11 @@ namespace Organic.Host
             builder.Services.AddScoped(typeof(IGenricQueryRepository<>), typeof(GenricQueryRepository<>));
             builder.Services.AddScoped<IGetUserQueryRepository, GetUserQueryRepository>();
 
+            //Behavior
+            builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+            // ثبت MediatR
+            builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommandHandler).Assembly));
 
 
             var app = builder.Build();
@@ -42,7 +51,7 @@ namespace Organic.Host
             }
 
             app.UseHttpsRedirection();
-
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseAuthorization();
 
 
