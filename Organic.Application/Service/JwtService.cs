@@ -27,7 +27,7 @@ namespace Organic.Application.Service
             _getUserQueryRepository = getUserQueryRepository;
         }
 
-        public async Task<LoginResultDto> GeneratToken(Guid userId)
+        public async Task<string> GeneratToken(Guid userId)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 
@@ -60,12 +60,7 @@ namespace Organic.Application.Service
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            var result = new LoginResultDto
-            {
-                Token= tokenHandler.WriteToken(token)
-            };
-
-            return result;
+            return tokenHandler.WriteToken(token);
         }
     }
 }

@@ -9,6 +9,6 @@ namespace Organic.Application.Interface
 {
     public interface IJwtService
     {
-        public Task<LoginResultDto> GeneratToken(Guid userId);
+        public Task<string> GeneratToken(Guid userId);
     }
 }

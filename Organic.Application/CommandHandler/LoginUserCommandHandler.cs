@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Organic.Application.Command.User;
 using Organic.Application.DTO;
+using Organic.Application.Interface;
 using Organic.Domain.Interface.UnitOfWorkInterface;
 using Organic.Domain.Interface.UserInterfase;
 using Organic.Domain.Model;
@@ -19,9 +20,14 @@ namespace Organic.Application.CommandHandler
     {
         private readonly ICrudUserRepository _crudUserRepository;
 
-        public LoginUserCommandHandler(ICrudUserRepository crudUserRepository)
+        private readonly IJwtService _jwtService;
+
+
+        public LoginUserCommandHandler(ICrudUserRepository crudUserRepository, IJwtService jwtService)
         {
             _crudUserRepository = crudUserRepository;
+
+            _jwtService = jwtService;
         }
 
         public async Task<LoginResultDto> Handle(LoginUserCommand command, CancellationToken cancellationToken)
@@ -35,7 +41,7 @@ namespace Organic.Application.CommandHandler
 
             var result = new LoginResultDto
             {
-                Token = ""
+                Token = await _jwtService.GeneratToken(userExsitst.Id)
             };
 
             return result;
