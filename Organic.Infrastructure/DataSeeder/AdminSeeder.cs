@@ -1,0 +1,29 @@
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.EntityFrameworkCore;
+using Organic.Domain.Model;
+using Organic.Infrastructure.Context;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Organic.Infrastructure.DataSeeder
+{
+    public class AdminSeeder
+    {
+        public static async Task SeedUserAsync(DataBaseContext context)
+        {
+            var AdminExists = await context.userModels.AnyAsync(u => u.PhoneNumber == "09397438089");
+
+            if (!AdminExists)
+            {
+                var admin = new UserModel(
+
+                   
+
+                );
+            }
+        }
+    }
+}

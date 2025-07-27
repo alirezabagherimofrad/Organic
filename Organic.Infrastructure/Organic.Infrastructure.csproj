@@ -26,10 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UnitOfWork\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Organic.Application\Organic.Application.csproj" />
     <ProjectReference Include="..\Organic.Domain\Organic.Domain.csproj" />
   </ItemGroup>
