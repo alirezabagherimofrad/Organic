@@ -26,10 +26,11 @@ namespace Organic.Infrastructure.Context
             modelBuilder.Entity<UserModel>(entity =>
             {
                 entity.HasKey(x => x.Id);
-                entity.Property(x => x.Name).IsRequired().HasMaxLength(50);
+                entity.Property(x => x.First_Name).IsRequired().HasMaxLength(50);
+                entity.Property(x => x.Last_Name).IsRequired().HasMaxLength(50);
                 entity.Property(x => x.Email).IsRequired().HasMaxLength(60);
                 entity.Property(x => x.Password).IsRequired().HasMaxLength(10);
-                entity.Property(x => x.NationalCode).IsRequired().HasMaxLength(10);
+
                 entity.Property(x => x.PhoneNumber).IsRequired().HasMaxLength(11);
                 modelBuilder.Entity<UserImageModel>()
                     .HasOne(ui => ui.User) 

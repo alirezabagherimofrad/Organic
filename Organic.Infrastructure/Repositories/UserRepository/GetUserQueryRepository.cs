@@ -18,10 +18,6 @@ namespace Organic.Infrastructure.Repositories.UserRepository
         {
             _context = dataBaseContext;
         }
-        public async Task<UserModel?> GetByNationalCode(string nationalCode) =>
-            await _context.userModels.FirstOrDefaultAsync(x => x.NationalCode == nationalCode);
-
-
         public async Task<UserModel?> GetByPassword(string password) =>
             await _context.userModels.FirstOrDefaultAsync(x => x.Password == password);
     }
