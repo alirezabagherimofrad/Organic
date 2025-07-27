@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Organic.Application.Command.User;
+using Organic.Application.DTO;
 using static Organic.Application.DTO.UserRegisterDTO;
 
 namespace Organic.Host.Controllers
@@ -21,6 +22,14 @@ namespace Organic.Host.Controllers
         public async Task<IActionResult> RegisterUser([FromBody] UserRegisterParameter userRegisterParameter)
         {
             var command = userRegisterParameter.Adapt<RegisterUserCommand>();
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> LoginUser([FromBody] LoginResultDto loginResultDto)
+        {
+            var command = loginResultDto.Adapt<LoginUserCommand>();
             var result = await _mediator.Send(command);
             return Ok(result);
         }

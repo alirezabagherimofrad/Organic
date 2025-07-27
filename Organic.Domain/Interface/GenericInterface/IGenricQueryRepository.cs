@@ -9,5 +9,7 @@ namespace Organic.Domain.Interface
     public interface IGenricQueryRepository<T> where T : class
     {
         Task<List<T>> Getall();
+
+        Task<T?> GetByIdAsync(Guid Id);
     }
 }

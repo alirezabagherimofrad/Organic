@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Organic.Domain.Interface.UserInterfase
 {
-    public interface IGetUserQueryRepository : IGenricQueryRepository<UserModel>
+    public interface ICrudUserRepository : IGenricCommandRepository<UserModel>
     {
-        Task<UserModel?> GetByPassword(string password);
+        Task<UserModel?> GetByPhoneNumberAndPasswordAsync(string PhoneNumber, string password);
+
     }
 }

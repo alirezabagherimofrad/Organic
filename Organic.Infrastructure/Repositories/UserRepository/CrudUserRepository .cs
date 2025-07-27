@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Organic.Domain.Interface;
 using Organic.Domain.Interface.UserInterfase;
 using Organic.Domain.Model;
 using Organic.Infrastructure.Context;
@@ -12,14 +11,18 @@ using System.Threading.Tasks;
 
 namespace Organic.Infrastructure.Repositories.UserRepository
 {
-    public class GetUserQueryRepository : GenricQueryRepository<UserModel>, IGetUserQueryRepository
+    public class CrudUserRepository : GenricCommandRepository<UserModel>, ICrudUserRepository
     {
         private readonly DataBaseContext _context;
-        public GetUserQueryRepository(DataBaseContext dataBaseContext) : base(dataBaseContext)
+
+        public CrudUserRepository(DataBaseContext context) : base(context)
         {
-            _context = dataBaseContext;
+            _context = context;
         }
-        public async Task<UserModel?> GetByPassword(string password) =>
-            await _context.userModels.FirstOrDefaultAsync(x => x.Password == password);
+
+        public async Task<UserModel?> GetByPhoneNumberAndPasswordAsync(string PhoneNumber, string Password)
+        {
+            return await _context.userModels.FirstOrDefaultAsync(x => x.PhoneNumber == PhoneNumber && x.Password == Password);
+        }
     }
 }
