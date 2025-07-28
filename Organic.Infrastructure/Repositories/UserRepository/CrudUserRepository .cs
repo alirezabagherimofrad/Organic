@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Organic.Domain.Interface.UserInterfase;
-using Organic.Domain.Model;
+using Organic.Domain.Model.User;
 using Organic.Infrastructure.Context;
 using Organic.Infrastructure.Repositories.GenericRepository;
 using System;

@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Organic.Domain.Model;
+using Organic.Domain.Model.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;

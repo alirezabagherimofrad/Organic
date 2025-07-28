@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Organic.Domain.Model
+namespace Organic.Domain.Model.User
 {
     public class UserImageModel
     {

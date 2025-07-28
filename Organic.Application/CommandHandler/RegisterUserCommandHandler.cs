@@ -3,7 +3,7 @@ using Mapster;
 using MediatR;
 using Organic.Application.Command.User;
 using Organic.Domain.Interface.UnitOfWorkInterface;
-using Organic.Domain.Model;
+using Organic.Domain.Model.User;
 
 
 namespace Organic.Application.CommandHandler

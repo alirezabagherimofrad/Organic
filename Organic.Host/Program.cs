@@ -14,7 +14,7 @@ using Organic.Application.Service;
 using Organic.Domain.Interface;
 using Organic.Domain.Interface.UnitOfWorkInterface;
 using Organic.Domain.Interface.UserInterfase;
-using Organic.Domain.Model;
+using Organic.Domain.Model.User;
 using Organic.Infrastructure.Context;
 using Organic.Infrastructure.DataSeeder;
 using Organic.Infrastructure.Middlewares;

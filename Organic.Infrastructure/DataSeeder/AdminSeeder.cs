@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
-using Organic.Domain.Model;
+using Organic.Domain.Model.User;
 using Organic.Infrastructure.Context;
 using System;
 using System.Collections.Generic;
