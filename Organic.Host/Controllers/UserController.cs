@@ -42,11 +42,11 @@ namespace Organic.Host.Controllers
             return Ok(result);
         }
 
-        //[HttpPut("Change_Password")]
-        //public async Task<IActionResult> LoginUser([FromBody] LoginUserCommand loginUserCommand)
-        //{
-        //    var result = await _mediator.Send(loginUserCommand);
-        //    return Ok(result);
-        //}
+        [HttpPost("Request_Otp")]
+        public async Task<IActionResult> LoginUser([FromBody] RequestOtpCommand requestOtpCommand)
+        {
+            var result = await _mediator.Send(requestOtpCommand);
+            return Ok(result);
+        }
     }
 }
