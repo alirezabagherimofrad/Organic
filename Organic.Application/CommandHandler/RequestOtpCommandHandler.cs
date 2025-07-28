@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Organic.Application.DTO;
+using Organic.Application.Command.User;
 using Organic.Domain.Interface.UnitOfWorkInterface;
 using System;
 using System.Collections.Generic;

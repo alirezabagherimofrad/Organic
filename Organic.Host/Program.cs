@@ -144,6 +144,8 @@ namespace Organic.Host
                     src.Gender
                 ));
 
+            builder.Services.AddHttpContextAccessor();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -165,9 +167,10 @@ namespace Organic.Host
 
             app.UseMiddleware<ExceptionHandlingMiddleware>();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseAuthentication();
+
 
             app.MapControllers();
 

@@ -51,7 +51,7 @@ namespace Organic.Application.Service
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-
+                
                 Expires = DateTime.UtcNow.AddMinutes(15),
 
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)

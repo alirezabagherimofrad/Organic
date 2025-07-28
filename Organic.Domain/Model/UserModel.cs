@@ -50,6 +50,11 @@ namespace Organic.Domain.Model
             Otp = otp;
             OtpExpiry = otpExpiry;
         }
+
+        public void SetNewPassword(string password)
+        {
+            Password = password;
+        }
     }
     public enum SelectGender
     {

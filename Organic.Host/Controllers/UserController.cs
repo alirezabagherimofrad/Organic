@@ -1,9 +1,9 @@
 ﻿using Mapster;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Organic.Application.Command.User;
-using Organic.Application.DTO;
 using static Organic.Application.DTO.LoginResultDto;
 using static Organic.Application.DTO.UpdateRegisterDTO;
 using static Organic.Application.DTO.UserRegisterDTO;
@@ -46,6 +46,21 @@ namespace Organic.Host.Controllers
         public async Task<IActionResult> LoginUser([FromBody] RequestOtpCommand requestOtpCommand)
         {
             var result = await _mediator.Send(requestOtpCommand);
+            return Ok(result);
+        }
+
+        [HttpPut("Forget_Password")]
+        public async Task<IActionResult> ForgetPassword([FromBody] ForgetPasswordCommand forgetPasswordCommand)
+        {
+            var result = await _mediator.Send(forgetPasswordCommand);
+            return Ok(result);
+        }
+
+        [Authorize]
+        [HttpPut("Change_Password")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordCommand changePasswordCommand)
+        {
+            var result = await _mediator.Send(changePasswordCommand);
             return Ok(result);
         }
     }
