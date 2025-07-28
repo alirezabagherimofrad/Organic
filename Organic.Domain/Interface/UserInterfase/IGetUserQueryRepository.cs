@@ -11,6 +11,7 @@ namespace Organic.Domain.Interface.UserInterfase
     {
         Task<UserModel?> GetByPassword(string password);
         Task<UserModel?> GetByEmail(string email);
+        Task<UserModel?> GetByPhoneNumber(string phonenumber);
         Task<UserModel?> GetById(Guid id);
     }
 }
