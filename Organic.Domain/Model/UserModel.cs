@@ -28,6 +28,8 @@ namespace Organic.Domain.Model
         public string Email { get; private set; }
         public string Password { get; private set; }
         public SelectGender Gender { get; private set; }
+        public string? Otp { get; private set; } 
+        public DateTime? OtpExpiry { get; private set; }
 
         public UserImageModel Image { get; private set; }
 
