@@ -51,7 +51,11 @@ namespace Organic.Application.CommandHandler.ProductHandler
 
             //var product = command.Adapt<ProductModel>();
 
-            var directoryPath = Path.Combine("C:\\Users\\LENOVO\\Documents\\OrganicPicture");
+            var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "products");
+
+            if (!Directory.Exists(directoryPath))
+                Directory.CreateDirectory(directoryPath);
+
 
             if (!Directory.Exists(directoryPath))
                 Directory.CreateDirectory(directoryPath);
@@ -64,7 +68,7 @@ namespace Organic.Application.CommandHandler.ProductHandler
                 {
                     var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     var filePath = Path.Combine(directoryPath, fileName);
-                    var imageUrl = "/images/products/" + fileName;
+                    var imageUrl = $"/images/products/{fileName}";
 
                     using var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write);
                     await file.CopyToAsync(stream);
