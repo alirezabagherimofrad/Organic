@@ -163,7 +163,7 @@ namespace Organic.Host
 
                 await AdminSeeder.SeedUserAsync(context);
             }
-
+            app.UseStaticFiles();
             app.UseHttpsRedirection();
 
             app.UseMiddleware<ExceptionHandlingMiddleware>();

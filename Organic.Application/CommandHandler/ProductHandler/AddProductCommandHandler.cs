@@ -30,10 +30,6 @@ namespace Organic.Application.CommandHandler.ProductHandler
 
                 var product = new ProductModel(request.Name, request.Price, request.Stock, request.Description, request.CatrgoryId);
 
-                //await _unitOfWork.SaveChangeAsync();
-
-                //var product = command.Adapt<ProductModel>();
-
                 var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "products");
 
                 if (!Directory.Exists(directoryPath))
@@ -60,24 +56,17 @@ namespace Organic.Application.CommandHandler.ProductHandler
                         await _unitOfWork.CommandRepository<ProductImageModel>().Add(image);
                     }
                 }
-
                 try
                 {
                     var saveResult = await _unitOfWork.SaveChangeAsync();
-
-                    if (saveResult <= 0)
-                        throw new Exception("هیچ داده‌ای ذخیره نشد!");
-
+                    //if (saveResult <= 0)
+                    //    throw new Exception("هیچ داده‌ای ذخیره نشد!");
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("خطا هنگام ذخیره داده‌ها در دیتابیس: " + ex.Message, ex);
                 }
-
                 return product.Id;
-
-                // عمو باقر
-                ///
             }
 
 
