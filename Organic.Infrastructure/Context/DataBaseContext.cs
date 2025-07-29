@@ -18,8 +18,8 @@ namespace Organic.Infrastructure.Context
 
         }
 
-        public DbSet<UserModel> userModels { get; set; }
-        public DbSet<UserImageModel> uploadeUserPicthers { get; set; }
+        public DbSet<UserModel> User { get; set; }
+        public DbSet<UserImageModel> UserImage { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

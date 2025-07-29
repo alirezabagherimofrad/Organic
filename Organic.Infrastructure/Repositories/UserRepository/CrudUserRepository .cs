@@ -22,7 +22,7 @@ namespace Organic.Infrastructure.Repositories.UserRepository
 
         public async Task<UserModel?> GetByPhoneNumberAndPasswordAsync(string PhoneNumber, string Password)
         {
-            return await _context.userModels.FirstOrDefaultAsync(x => x.PhoneNumber == PhoneNumber && x.Password == Password);
+            return await _context.User.FirstOrDefaultAsync(x => x.PhoneNumber == PhoneNumber && x.Password == Password);
         }
     }
 }

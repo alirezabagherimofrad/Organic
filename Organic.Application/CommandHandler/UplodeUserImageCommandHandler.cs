@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Organic.Application.Command.User;
 using Organic.Domain.Interface.UnitOfWorkInterface;
@@ -17,15 +18,22 @@ namespace Organic.Application.CommandHandler
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UplodeUserImageCommandHandler(IUnitOfWork unitOfWork, IWebHostEnvironment env)
+        public UplodeUserImageCommandHandler(IUnitOfWork unitOfWork, IWebHostEnvironment env, IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
             _env = env;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<string> Handle(UplodeUserImageCommand request, CancellationToken cancellationToken)
         {
+
+            var currentUserId = _httpContextAccessor.HttpContext?.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(currentUserId))
+                return "کاربر احراز هویت نشده است.";
+
             var queryRepo = _unitOfWork.QueryRepository<UserImageModel>();
             var commandRepo = _unitOfWork.CommandRepository<UserImageModel>();
 

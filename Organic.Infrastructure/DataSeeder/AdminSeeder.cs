@@ -14,7 +14,7 @@ namespace Organic.Infrastructure.DataSeeder
     {
         public static async Task SeedUserAsync(DataBaseContext context)
         {
-            var AdminExists = await context.userModels.AnyAsync(u => u.PhoneNumber == "09397438089");
+            var AdminExists = await context.User.AnyAsync(u => u.PhoneNumber == "09397438089");
 
             if (!AdminExists)
             {
