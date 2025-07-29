@@ -16,12 +16,10 @@ namespace Organic.Domain.Model.Product
 
         public ICollection<ProductModel> Products { get; private set; }
 
-        public ProductCategoryModel(string name)
+        public ProductCategoryModel(string name, Guid id)
         {
-            Id = Guid.NewGuid();
-
+            Id = id;
             Name = name;
-
             Products = new List<ProductModel>();
         }
     }

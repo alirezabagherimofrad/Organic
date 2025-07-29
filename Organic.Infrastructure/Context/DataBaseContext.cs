@@ -20,7 +20,10 @@ namespace Organic.Infrastructure.Context
 
         public DbSet<UserModel> userModels { get; set; }
         public DbSet<UserImageModel> uploadeUserPicthers { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public DbSet<ProductModel> ProductModel { get; set; }
+        public DbSet<ProductCategoryModel> ProductCategoryModel { get; set; } 
+        public DbSet<ProductImageModel> ProductImages { get; set; }
+         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
@@ -33,6 +36,8 @@ namespace Organic.Infrastructure.Context
                 entity.Property(x => x.Password).IsRequired().HasMaxLength(30);
                 entity.Property(x => x.PhoneNumber).IsRequired().HasMaxLength(11);
             });
+
+            modelBuilder.Entity<ProductModel>().ToTable("Product");
 
             modelBuilder.Entity<UserImageModel>()
                     .HasOne(ui => ui.User)

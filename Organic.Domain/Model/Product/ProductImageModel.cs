@@ -35,6 +35,8 @@ namespace Organic.Domain.Model.Product
             ProductId = productId;
 
             CreatedAt = DateTime.Now;
+
+            UpdatedAt = DateTime.Now;
         }
 
     }
