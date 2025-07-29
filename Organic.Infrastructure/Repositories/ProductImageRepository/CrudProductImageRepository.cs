@@ -13,7 +13,7 @@ namespace Organic.Infrastructure.Repositories.ProductImageRepository
     public class CrudProductImageRepository : GenricCommandRepository<ProductImageModel>, ICrudProductImageRepository
     {
         public CrudProductImageRepository(DataBaseContext context) : base(context)
-        {
+        { 
         }
     }
 }

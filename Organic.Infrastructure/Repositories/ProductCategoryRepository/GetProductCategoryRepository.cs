@@ -14,6 +14,6 @@ namespace Organic.Infrastructure.Repositories.ProductCategoryRepository
     {
         public GetProductCategoryRepository(DataBaseContext dataBaseContext) : base(dataBaseContext)
         {
-        }
+        } 
     }
 }

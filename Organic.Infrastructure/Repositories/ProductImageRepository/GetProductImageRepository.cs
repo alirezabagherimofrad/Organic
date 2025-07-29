@@ -13,7 +13,7 @@ namespace Organic.Infrastructure.Repositories.ProductImageRepository
     public class GetProductImageRepository : GenricQueryRepository<ProductImageModel>, IGetProductImageRepository
     {
         public GetProductImageRepository(DataBaseContext dataBaseContext) : base(dataBaseContext)
-        {
+        { 
         }
     }
 }
