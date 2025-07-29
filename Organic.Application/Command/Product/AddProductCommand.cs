@@ -22,5 +22,7 @@ namespace Organic.Application.Command.Product
         public int Stock { get; set; }
         public ICollection<IFormFile> ProductImages { get; set; } = new List<IFormFile>();
 
+
+
     }
 }
