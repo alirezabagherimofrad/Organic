@@ -63,5 +63,14 @@ namespace Organic.Host.Controllers
             var result = await _mediator.Send(changePasswordCommand);
             return Ok(result);
         }
+
+        //[Authorize]
+        [HttpPost("Upload_Image")]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> UploadImage([FromForm] UplodeUserImageCommand uplodeUserImageCommand)
+        {
+            var result = await _mediator.Send(uplodeUserImageCommand);
+            return Ok(result);
+        }
     }
 }

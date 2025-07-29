@@ -60,6 +60,7 @@ namespace Organic.Host
             //command , commandHandler
             builder.Services.AddScoped<IRequestHandler<RegisterUserCommand, string>, RegisterUserCommandHandler>();
             builder.Services.AddScoped<IRequestHandler<LoginUserCommand, LoginResultDto>, LoginUserCommandHandler>();
+            builder.Services.AddScoped<IRequestHandler<UplodeUserImageCommand, string>, UplodeUserImageCommandHandler>();
 
             //unit of work
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();

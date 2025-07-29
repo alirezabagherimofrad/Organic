@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Organic.Infrastructure\Organic.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>
