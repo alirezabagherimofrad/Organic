@@ -9,6 +9,6 @@ namespace Organic.Application.Command.Order
 {
     public class AddOrderCommand : IRequest<string>
     {
-
+         public ICollection<>
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Organic.Application.Behaviors;
 using Organic.Application.Command.User;
-using Organic.Application.CommandHandler;
+using Organic.Application.CommandHandler.UserHandler;
 using Organic.Application.DTO;
 using Organic.Application.Interface;
 using Organic.Application.Service;
