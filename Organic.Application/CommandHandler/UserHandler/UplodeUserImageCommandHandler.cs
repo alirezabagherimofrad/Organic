@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Organic.Application.Command.User;
+using Organic.Domain.Interface;
 using Organic.Domain.Interface.UnitOfWorkInterface;
 using Organic.Domain.Model.User;
 using System;
@@ -19,12 +20,17 @@ namespace Organic.Application.CommandHandler.UserHandler
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IGenricQueryRepository<UserImageModel> _genricQueryRepository;
+        private readonly IGenricCommandRepository<UserImageModel> _genricCommandRepository;
 
-        public UplodeUserImageCommandHandler(IUnitOfWork unitOfWork, IWebHostEnvironment env, IHttpContextAccessor httpContextAccessor)
+        public UplodeUserImageCommandHandler(IUnitOfWork unitOfWork, IWebHostEnvironment env, IHttpContextAccessor httpContextAccessor, 
+            IGenricQueryRepository<UserImageModel> genricQueryRepository, IGenricCommandRepository<UserImageModel> genricCommandRepository)
         {
             _unitOfWork = unitOfWork;
             _env = env;
             _httpContextAccessor = httpContextAccessor;
+            _genricQueryRepository = genricQueryRepository;
+            _genricCommandRepository = genricCommandRepository;
         }
 
         public async Task<string> Handle(UplodeUserImageCommand request, CancellationToken cancellationToken)
@@ -33,9 +39,6 @@ namespace Organic.Application.CommandHandler.UserHandler
             var currentUserId = _httpContextAccessor.HttpContext?.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(currentUserId))
                 return "کاربر احراز هویت نشده است.";
-
-            var queryRepo = _unitOfWork.QueryRepository<UserImageModel>();
-            var commandRepo = _unitOfWork.CommandRepository<UserImageModel>();
 
             // 1. ذخیره فایل در سرور
             var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
@@ -51,23 +54,23 @@ namespace Organic.Application.CommandHandler.UserHandler
             }
 
             // 2. بررسی وجود رکورد
-            var existing = await queryRepo.GetByIdAsync(request.UserId);
+            var existing = await _genricQueryRepository.GetByIdAsync(request.UserId);
                                           
 
             if (existing != null)
             {
                 existing.SetPath($"/uploads/{uniqueFileName}");
-                await commandRepo.Update(existing);
+                await _genricCommandRepository.Update(existing);
             }
             else
             {
                 var newEntity = new UserImageModel($"/uploads/{uniqueFileName}", request.UserId);
-                await commandRepo.Add(newEntity);
+                await _genricCommandRepository.Add(newEntity);
                 existing = newEntity;
             }
 
             await _unitOfWork.SaveChangeAsync();
-            return existing.FilePath; // مسیر نسبی ذخیره شده
+            return existing.FilePath; 
         }
     }
 }

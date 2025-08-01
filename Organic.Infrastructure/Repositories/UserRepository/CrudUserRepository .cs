@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Organic.Infrastructure.Repositories.UserRepository
 {
-    public class CrudUserRepository : GenricCommandRepository<UserModel>, ICrudUserRepository
+    public class CrudUserRepository : GenricCommandRepository<UserModel>, IUserQueryRepository
     {
         private readonly DataBaseContext _context;
 

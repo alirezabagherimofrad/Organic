@@ -48,7 +48,7 @@ namespace Organic.Host
             builder.Services.AddScoped(typeof(IGenricCommandRepository<>), typeof(GenricCommandRepository<>));
             builder.Services.AddScoped(typeof(IGenricQueryRepository<>), typeof(GenricQueryRepository<>));
             builder.Services.AddScoped<IGetUserQueryRepository, GetUserQueryRepository>();
-            builder.Services.AddScoped<ICrudUserRepository, CrudUserRepository>();
+            builder.Services.AddScoped<IUserQueryRepository, CrudUserRepository>();
 
 
             //Behavior

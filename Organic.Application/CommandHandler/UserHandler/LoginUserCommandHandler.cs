@@ -18,12 +18,12 @@ namespace Organic.Application.CommandHandler.UserHandler
 {
     public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginResultDto>
     {
-        private readonly ICrudUserRepository _crudUserRepository;
+        private readonly IUserQueryRepository _crudUserRepository;
 
         private readonly IJwtService _jwtService;
 
 
-        public LoginUserCommandHandler(ICrudUserRepository crudUserRepository, IJwtService jwtService)
+        public LoginUserCommandHandler(IUserQueryRepository crudUserRepository, IJwtService jwtService)
         {
             _crudUserRepository = crudUserRepository;
 

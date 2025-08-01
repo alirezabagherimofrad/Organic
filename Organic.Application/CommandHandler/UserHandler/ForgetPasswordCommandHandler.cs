@@ -2,6 +2,7 @@
 using MediatR;
 using Organic.Application.Command.User;
 using Organic.Domain.Interface.UnitOfWorkInterface;
+using Organic.Domain.Interface.UserInterfase;
 using Organic.Domain.Model;
 using System;
 using System.Collections.Generic;
@@ -14,14 +15,16 @@ namespace Organic.Application.CommandHandler.UserHandler
     public class ForgetPasswordCommandHandler : IRequestHandler<ForgetPasswordCommand, string>
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ForgetPasswordCommandHandler(IUnitOfWork unitOfWork)
+        private readonly IGetUserQueryRepository _getUserQueryRepository;
+        public ForgetPasswordCommandHandler(IUnitOfWork unitOfWork, IGetUserQueryRepository getUserQueryRepository)
         {
             _unitOfWork = unitOfWork;
+            _getUserQueryRepository = getUserQueryRepository;
         }
 
         public async Task<string> Handle(ForgetPasswordCommand request, CancellationToken cancellationToken)
         {
-            var user = await _unitOfWork.UserQueryRepository().GetByPhoneNumber(request.PhoneNumber);
+            var user = await _getUserQueryRepository.GetByPhoneNumber(request.PhoneNumber);
             if(user == null)
             {
                 return "شماره موبایل یافت نشد.";
