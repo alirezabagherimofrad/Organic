@@ -20,14 +20,14 @@ namespace Organic.Infrastructure.Repositories.UserRepository
             _context = dataBaseContext;
         }
         public async Task<UserModel?> GetByPassword(string password) =>
-            await _context.userModels.FirstOrDefaultAsync(x => x.Password == password);
+            await _context.User.FirstOrDefaultAsync(x => x.Password == password);
 
-        public async Task<UserModel?> GetById(Guid id) => await _context.userModels.FindAsync(id);
+        public async Task<UserModel?> GetById(Guid id) => await _context.User.FindAsync(id);
 
         public async Task<UserModel?> GetByEmail(string email) =>
-            await _context.userModels.FirstOrDefaultAsync(x => x.Email == email);
+            await _context.User.FirstOrDefaultAsync(x => x.Email == email);
 
         public async Task<UserModel?> GetByPhoneNumber(string phonenumber) =>
-            await _context.userModels.FirstOrDefaultAsync(x => x.PhoneNumber == phonenumber);
+            await _context.User.FirstOrDefaultAsync(x => x.PhoneNumber == phonenumber);
     }
 }

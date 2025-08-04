@@ -6,17 +6,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Organic.Application.Behaviors;
-using Organic.Application.Command.Product;
 using Organic.Application.Command.User;
 using Organic.Application.CommandHandler;
-using Organic.Application.CommandHandler.ProductHandler;
 using Organic.Application.DTO;
 using Organic.Application.Interface;
 using Organic.Application.Service;
 using Organic.Domain.Interface;
-using Organic.Domain.Interface.ProductCategory;
-using Organic.Domain.Interface.ProductImageInterface;
-using Organic.Domain.Interface.ProductInterface;
 using Organic.Domain.Interface.UnitOfWorkInterface;
 using Organic.Domain.Interface.UserInterfase;
 using Organic.Domain.Model.User;
@@ -24,9 +19,6 @@ using Organic.Infrastructure.Context;
 using Organic.Infrastructure.DataSeeder;
 using Organic.Infrastructure.Middlewares;
 using Organic.Infrastructure.Repositories.GenericRepository;
-using Organic.Infrastructure.Repositories.ProductCategoryRepository;
-using Organic.Infrastructure.Repositories.ProductImageRepository;
-using Organic.Infrastructure.Repositories.ProductRepository;
 using Organic.Infrastructure.Repositories.UserRepository;
 using Organic.Infrastructure.Settings;
 using Organic.Infrastructure.UnitOfWork;
@@ -57,11 +49,7 @@ namespace Organic.Host
             builder.Services.AddScoped(typeof(IGenricQueryRepository<>), typeof(GenricQueryRepository<>));
             builder.Services.AddScoped<IGetUserQueryRepository, GetUserQueryRepository>();
             builder.Services.AddScoped<ICrudUserRepository, CrudUserRepository>();
-            builder.Services.AddScoped<ICrudProductRepository, CrudProductRepository>();
-            builder.Services.AddScoped<IGetProductQueryRepository, GetProductQueryRepository>();
-            builder.Services.AddScoped<ICrudProductImageRepository, CrudProductImageRepository>();
-            builder.Services.AddScoped<ICrudProductCategoryRepository, CrudProductCategoryRepository>();
-            builder.Services.AddScoped<IGetProductCategoryRepository, GetProductCategoryRepository>();
+
 
             //Behavior
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
@@ -72,7 +60,7 @@ namespace Organic.Host
             //command , commandHandler
             builder.Services.AddScoped<IRequestHandler<RegisterUserCommand, string>, RegisterUserCommandHandler>();
             builder.Services.AddScoped<IRequestHandler<LoginUserCommand, LoginResultDto>, LoginUserCommandHandler>();
-            builder.Services.AddScoped<IRequestHandler<AddProductCommand, Guid>, AddProductCommandHandler>();
+            builder.Services.AddScoped<IRequestHandler<UplodeUserImageCommand, string>, UplodeUserImageCommandHandler>();
 
             //unit of work
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -174,8 +162,6 @@ namespace Organic.Host
                 var context = scope.ServiceProvider.GetRequiredService<DataBaseContext>();
 
                 await AdminSeeder.SeedUserAsync(context);
-
-                await ProductCategorySeeder.CategorySeeder(context);
             }
 
             app.UseHttpsRedirection();

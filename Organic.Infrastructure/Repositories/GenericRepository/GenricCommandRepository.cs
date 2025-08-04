@@ -19,7 +19,7 @@ namespace Organic.Infrastructure.Repositories.GenericRepository
         public async Task<T> Add(T entity)
         {
             await _context.Set<T>().AddAsync(entity);
-            //await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return entity;
 
         }
@@ -27,14 +27,14 @@ namespace Organic.Infrastructure.Repositories.GenericRepository
         public async Task<bool> Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
-            //await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return true;
         }
 
         public async Task<bool> Update(T entity)
         {
              _context.Set<T>().Update(entity);
-            //await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return true;
         }
     }

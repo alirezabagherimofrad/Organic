@@ -30,7 +30,7 @@ namespace Organic.Domain.Model.Product
 
         public ICollection<ProductImageModel> ProductImages { get; private set; }
 
-        public ProductModel(string name, int price, int? stock, string? description, Guid catrgoryId)
+        public ProductModel(string name, int price, int stock, string? description, Guid catrgoryId)
         {
             Id = Guid.NewGuid();
 
@@ -40,15 +40,13 @@ namespace Organic.Domain.Model.Product
 
             Stock = stock;
 
+            CreatedAt = DateTime.Now;
+
             Description = description;
 
             CatrgoryId = catrgoryId;
 
             ProductImages = new List<ProductImageModel>();
-
-            CreatedAt = DateTime.Now;
-
-            UpdatedAt = DateTime.Now;
         }
     }
 }
