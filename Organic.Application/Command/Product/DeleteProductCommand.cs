@@ -11,5 +11,7 @@ namespace Organic.Application.Command.Product
     public class DeleteProductCommand : IRequest<bool>
     {
         public Guid ProductId { get; set; }
+
+        public Guid ProductImageId { get; set; }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using MediatR;
 using Organic.Application.Command.Product;
+using Organic.Domain.Interface;
 using Organic.Domain.Interface.UnitOfWorkInterface;
 using Organic.Domain.Model.Product;
+using System.Security.Claims;
 
 
 namespace Organic.Application.CommandHandler.ProductHandler
@@ -9,39 +11,40 @@ namespace Organic.Application.CommandHandler.ProductHandler
     public class AddProductCommandHandler : IRequestHandler<AddProductCommand, Guid>
     {
 
+        private readonly IGenricCommandRepository<ProductImageModel> _productImageRepository;
+
+        private readonly IGenricCommandRepository<ProductModel> _productRepository;
+
+        private readonly IGenricQueryRepository<ProductCategoryModel> _getProductRepository;
+
         private readonly IUnitOfWork _unitOfWork;
 
-
-        public AddProductCommandHandler(IUnitOfWork unitOfWork)
+        public AddProductCommandHandler(IGenricCommandRepository<ProductImageModel> productImageRepository, IGenricCommandRepository<ProductModel> productRepository, IGenricQueryRepository<ProductCategoryModel> getProductRepository, IUnitOfWork unitOfWork)
         {
-
-
+            _productImageRepository = productImageRepository;
+            _productRepository = productRepository;
+            _getProductRepository = getProductRepository;
             _unitOfWork = unitOfWork;
-
-
         }
-        public async Task<Guid> Handle(AddProductCommand request, CancellationToken cancellationToken)
+
+        public async Task<Guid> Handle(AddProductCommand command, CancellationToken cancellationToken)
         {
             {
-                var productCategory = await _unitOfWork.QueryRepository<ProductCategoryModel>().GetByIdAsync(request.CatrgoryId);
+                var productCategory = await _getProductRepository.GetByIdAsync(command.CatrgoryId);
 
                 if (productCategory == null)
                     throw new ArgumentException("Category Not Found");
 
-                var product = new ProductModel(request.Name, request.Price, request.Stock, request.Description, request.CatrgoryId);
+                var product = new ProductModel(command.Name, command.Price, command.Stock, command.Description, command.CatrgoryId);
 
                 var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "products");
 
                 if (!Directory.Exists(directoryPath))
                     Directory.CreateDirectory(directoryPath);
 
+                await _productRepository.Add(product);
 
-                if (!Directory.Exists(directoryPath))
-                    Directory.CreateDirectory(directoryPath);
-
-                await _unitOfWork.CommandRepository<ProductModel>().Add(product);
-
-                foreach (var file in request.ProductImages)
+                foreach (var file in command.ProductImages)
                 {
                     if (file != null && file.Length > 0)
                     {
@@ -53,7 +56,7 @@ namespace Organic.Application.CommandHandler.ProductHandler
                         await file.CopyToAsync(stream);
 
                         var image = new ProductImageModel(filePath, imageUrl, product.Id);
-                        await _unitOfWork.CommandRepository<ProductImageModel>().Add(image);
+                        await _productImageRepository.Add(image);
                     }
                 }
                 try
@@ -68,8 +71,6 @@ namespace Organic.Application.CommandHandler.ProductHandler
                 }
                 return product.Id;
             }
-
-
         }
     }
 }
