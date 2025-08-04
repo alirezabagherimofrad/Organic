@@ -26,9 +26,9 @@ namespace Organic.Domain.Model.Product
 
         public Guid CatrgoryId { get; private set; }
 
-        //public decimal? DiscountPercent { get; set; } // میزان درصد تخفیف 
+        public decimal? DiscountPercent { get; private set; } // میزان درصد تخفیف 
 
-        //public int? DiscountDuration { get; set; } // میزان مدت زمانی که برای اون تخفیف در نظر گرفته شده 
+        public int? DiscountDuration { get; private set; } // میزان مدت زمانی که برای اون تخفیف در نظر گرفته شده 
 
         public ProductCategoryModel ProductCategory { get; private set; }
 
@@ -69,6 +69,13 @@ namespace Organic.Domain.Model.Product
         public void UpdateTime(DateTime dateTime)
         {
             UpdatedAt = DateTime.Now;
+        }
+
+        public void SetDiscount(decimal? discountPercent, int? discountDuration)
+        {
+            DiscountPercent = discountPercent;
+
+            DiscountDuration = discountDuration;
         }
     }
 }
