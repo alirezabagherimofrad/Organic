@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Organic.Domain.Model.Address;
+using Organic.Domain.Model.Discount;
 using Organic.Domain.Model.Order;
 using Organic.Domain.Model.Product;
 using Organic.Domain.Model.User;
@@ -27,7 +29,10 @@ namespace Organic.Infrastructure.Context
         public DbSet<ProductCategoryModel> ProductCategoryModel { get; set; }
         public DbSet<ProductImageModel> ProductImages { get; set; }
         public DbSet<OrderItemModel> orderItemModels { get; set; }
-        public DbSet<OrderModel> orderModels { get; set; }
+        public DbSet<OrderModel> OrderModels { get; set; }
+        public DbSet<DiscountModel> discountModels { get; set; }
+        public DbSet<AddressModel> addressModels { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
