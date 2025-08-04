@@ -26,6 +26,9 @@ namespace Organic.Infrastructure.Context
         public DbSet<ProductModel> ProductModel { get; set; }
         public DbSet<ProductCategoryModel> ProductCategoryModel { get; set; }
         public DbSet<ProductImageModel> ProductImages { get; set; }
+        public DbSet<OrderItemModel> orderItemModels { get; set; }
+        public DbSet<OrderModel> orderModels { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
