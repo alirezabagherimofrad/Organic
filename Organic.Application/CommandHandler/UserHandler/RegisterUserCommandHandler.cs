@@ -6,7 +6,7 @@ using Organic.Domain.Interface.UnitOfWorkInterface;
 using Organic.Domain.Model.User;
 
 
-namespace Organic.Application.CommandHandler
+namespace Organic.Application.CommandHandler.UserHandler
 {
     public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, string>
     {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Organic.Domain.Model.Order;
 using Organic.Domain.Model.Product;
 using Organic.Domain.Model.User;
 using System;
@@ -49,6 +50,11 @@ namespace Organic.Infrastructure.Context
                 .HasOne(ui => ui.ProductCategory)
                 .WithMany(u => u.Products)
                 .HasForeignKey(ui => ui.CatrgoryId);
+
+            modelBuilder.Entity<OrderItemModel>()
+                .HasOne(oi => oi.Order)
+                .WithMany(o => o.OrderItems)
+                .HasForeignKey(oi => oi.OrderId);
         }
     }
 }

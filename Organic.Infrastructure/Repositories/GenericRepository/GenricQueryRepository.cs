@@ -4,6 +4,7 @@ using Organic.Infrastructure.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,6 +24,11 @@ namespace Organic.Infrastructure.Repositories.GenericRepository
         public async Task<T?> GetByIdAsync(Guid Id)
         {
             return await _context.Set<T>().FindAsync(Id);
+        }
+
+        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>> expression)
+        {
+            return await _context.Set<T>().Where(expression).ToListAsync();
         }
     }
 }

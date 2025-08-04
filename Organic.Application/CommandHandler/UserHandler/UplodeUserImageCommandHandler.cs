@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static Dapper.SqlMapper;
 
-namespace Organic.Application.CommandHandler
+namespace Organic.Application.CommandHandler.UserHandler
 {
     public class UplodeUserImageCommandHandler : IRequestHandler<UplodeUserImageCommand, string>
     {

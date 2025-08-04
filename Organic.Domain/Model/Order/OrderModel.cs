@@ -1,4 +1,5 @@
-﻿using Organic.Domain.Model.Address;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Organic.Domain.Model.Address;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -26,6 +27,9 @@ namespace Organic.Domain.Model.Order
 
         public SelectOrderStatus OrderStatus { get; private set; }
 
+        // ✅ درست: هر سفارش دارای لیستی از آیتم‌هاست
+        public ICollection<OrderItemModel> OrderItems { get; private set; } = new List<OrderItemModel>();
+
         public int TrackingNumber { get; private set; }
 
         public enum SelectOrderStatus
@@ -39,14 +43,12 @@ namespace Organic.Domain.Model.Order
             [Display(Name = "Completion")] Completion
         }
 
-        public OrderModel(Guid addressId, int TotalPrice)
+        public OrderModel(Guid addressId, int totalPrice, int orderNumber)
         {
             Id = Guid.NewGuid();
-
-            AddressId = AddressId;
-
-            OrderNumber = TotalPrice;
-
+            AddressId = addressId;
+            OrderNumber = orderNumber;
+            TotalPrice = totalPrice;
             OrderDate = DateTime.Now;
         }
     }

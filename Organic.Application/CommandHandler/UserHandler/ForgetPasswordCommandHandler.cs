@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Organic.Application.CommandHandler
+namespace Organic.Application.CommandHandler.UserHandler
 {
     public class ForgetPasswordCommandHandler : IRequestHandler<ForgetPasswordCommand, string>
     {

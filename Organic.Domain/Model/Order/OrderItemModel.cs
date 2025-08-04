@@ -27,9 +27,9 @@ namespace Organic.Domain.Model.Order
 
         public int TotalPrice => Quantity * UnitPrice;
 
-        public ICollection<OrderItemModel> OrderItems { get; private set; }
+        //public ICollection<OrderItemModel> OrderItems { get; private set; }
 
-        public OrderItemModel(Guid orderId, OrderModel order, Guid productId, ProductModel product)
+        public OrderItemModel(Guid orderId, /*OrderModel order,*/ Guid productId, ProductModel product)
         {
             Id = Guid.NewGuid();
 
@@ -39,7 +39,7 @@ namespace Organic.Domain.Model.Order
 
             Product = product;
 
-            OrderItems = new List<OrderItemModel>();
+            //OrderItems = new List<OrderItemModel>();
         }
     }
 }

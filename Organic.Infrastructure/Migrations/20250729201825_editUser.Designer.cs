@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Organic.Infrastructure.Context;
 
@@ -11,9 +12,11 @@ using Organic.Infrastructure.Context;
 namespace Organic.Infrastructure.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20250729201825_editUser")]
+    partial class editUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,93 +24,6 @@ namespace Organic.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Organic.Domain.Model.Address.AddressModel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FullAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostalCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdateAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AddressModel");
-                });
-
-            modelBuilder.Entity("Organic.Domain.Model.Order.OrderItemModel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UnitPrice")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderItemModel");
-                });
-
-            modelBuilder.Entity("Organic.Domain.Model.Order.OrderModel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AddressId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("OrderNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrderStatus")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalPrice")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TrackingNumber")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
-
-                    b.ToTable("OrderModel");
-                });
 
             modelBuilder.Entity("Organic.Domain.Model.Product.ProductCategoryModel", b =>
                 {
@@ -255,36 +171,6 @@ namespace Organic.Infrastructure.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("Organic.Domain.Model.Order.OrderItemModel", b =>
-                {
-                    b.HasOne("Organic.Domain.Model.Order.OrderModel", "Order")
-                        .WithMany("OrderItems")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Organic.Domain.Model.Product.ProductModel", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Organic.Domain.Model.Order.OrderModel", b =>
-                {
-                    b.HasOne("Organic.Domain.Model.Address.AddressModel", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Address");
-                });
-
             modelBuilder.Entity("Organic.Domain.Model.Product.ProductImageModel", b =>
                 {
                     b.HasOne("Organic.Domain.Model.Product.ProductModel", "Product")
@@ -316,11 +202,6 @@ namespace Organic.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Organic.Domain.Model.Order.OrderModel", b =>
-                {
-                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("Organic.Domain.Model.Product.ProductCategoryModel", b =>
