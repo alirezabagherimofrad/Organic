@@ -10,6 +10,8 @@ namespace Organic.Application.Command.Product
 {
     public class UpdateProductCommand : IRequest<bool>
     {
+        public Guid ProductId { get; set; }
+
         public string Name { get; set; }
 
         public int Price { get; set; }
@@ -19,5 +21,7 @@ namespace Organic.Application.Command.Product
         public int Stock { get; set; }
 
         public ICollection<IFormFile> ProductImages { get; set; } = new List<IFormFile>();
+
+        public List<Guid>? DeletedImageIds { get; set; }
     }
 }

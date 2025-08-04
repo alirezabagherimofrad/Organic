@@ -26,6 +26,10 @@ namespace Organic.Domain.Model.Product
 
         public Guid CatrgoryId { get; private set; }
 
+        //public decimal? DiscountPercent { get; set; } // میزان درصد تخفیف 
+
+        //public int? DiscountDuration { get; set; } // میزان مدت زمانی که برای اون تخفیف در نظر گرفته شده 
+
         public ProductCategoryModel ProductCategory { get; private set; }
 
         public ICollection<ProductImageModel> ProductImages { get; private set; }
@@ -47,6 +51,24 @@ namespace Organic.Domain.Model.Product
             CatrgoryId = catrgoryId;
 
             ProductImages = new List<ProductImageModel>();
+        }
+
+        public void Update(string name, int price, string? description, int? stock)
+        {
+            Name = name;
+
+            Price = price;
+
+            Stock = stock;
+
+            UpdatedAt = DateTime.Now;
+
+            Description = description;
+        }
+
+        public void UpdateTime(DateTime dateTime)
+        {
+            UpdatedAt = DateTime.Now;
         }
     }
 }
