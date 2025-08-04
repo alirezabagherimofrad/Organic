@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Organic.Infrastructure.Context;
 
@@ -11,9 +12,11 @@ using Organic.Infrastructure.Context;
 namespace Organic.Infrastructure.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20250801154909_AddBasketModel")]
+    partial class AddBasketModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,35 +68,13 @@ namespace Organic.Infrastructure.Migrations
                     b.ToTable("baskets");
                 });
 
-            modelBuilder.Entity("Organic.Domain.Model.Order.BasketItemModel", b =>
+            modelBuilder.Entity("Organic.Domain.Model.Order.OrderItemModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("BasketId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UnitPrice")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BasketId");
-
-                    b.ToTable("basketItemModels");
-                });
-
-            modelBuilder.Entity("Organic.Domain.Model.Order.OrderItemModel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("OrderId")
@@ -109,6 +90,8 @@ namespace Organic.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BasketId");
 
                     b.HasIndex("OrderId");
 
@@ -294,15 +277,12 @@ namespace Organic.Infrastructure.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("Organic.Domain.Model.Order.BasketItemModel", b =>
-                {
-                    b.HasOne("Organic.Domain.Model.Order.Basket", null)
-                        .WithMany("basketItemModels")
-                        .HasForeignKey("BasketId");
-                });
-
             modelBuilder.Entity("Organic.Domain.Model.Order.OrderItemModel", b =>
                 {
+                    b.HasOne("Organic.Domain.Model.Order.Basket", null)
+                        .WithMany("OrderItemModels")
+                        .HasForeignKey("BasketId");
+
                     b.HasOne("Organic.Domain.Model.Order.OrderModel", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
@@ -366,7 +346,7 @@ namespace Organic.Infrastructure.Migrations
 
             modelBuilder.Entity("Organic.Domain.Model.Order.Basket", b =>
                 {
-                    b.Navigation("basketItemModels");
+                    b.Navigation("OrderItemModels");
                 });
 
             modelBuilder.Entity("Organic.Domain.Model.Order.OrderModel", b =>

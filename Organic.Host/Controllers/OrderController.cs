@@ -16,9 +16,9 @@ namespace Organic.Host.Controllers
         }
 
         [HttpPost("Basxet")]
-        public async Task<IActionResult> Add([FromBody] AddOrderCommand addOrderCommand)
+        public async Task<IActionResult> Add([FromBody] AddBasketCommand addBasketCommand)
         {
-            var command = await _mediator.Send(addOrderCommand);
+            var command = await _mediator.Send(addBasketCommand);
             return Ok(command);
         }
     }
