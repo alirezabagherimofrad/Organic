@@ -162,6 +162,8 @@ namespace Organic.Host
                 var context = scope.ServiceProvider.GetRequiredService<DataBaseContext>();
 
                 await AdminSeeder.SeedUserAsync(context);
+
+                await ProductCategorySeeder.CategorySeeder(context);
             }
             app.UseStaticFiles();
             app.UseHttpsRedirection();
