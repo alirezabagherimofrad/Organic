@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Organic.Domain.Model.Address;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -30,9 +31,8 @@ namespace Organic.Domain.Model.User
         public SelectGender Gender { get; private set; }
         public string? Otp { get; private set; } 
         public DateTime? OtpExpiry { get; private set; }
-
         public UserImageModel Image { get; private set; }
-
+        public List<AddressModel> Addresses { get; set; }
         private  UserModel() { }
 
         public  void update(string first_Name, string last_Name, string phoneNumber, string email, string password, SelectGender gender)

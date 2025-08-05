@@ -73,6 +73,11 @@ namespace Organic.Infrastructure.Context
                 .HasMany(b => b.basketItemModels)
                 .WithOne(i => i.Basket)
                 .HasForeignKey(i => i.BasketId);
+
+            modelBuilder.Entity<UserModel>()
+                .HasMany(b => b.Addresses)
+                .WithOne(i => i.User)
+                .HasForeignKey(i => i.UserId);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Organic.Domain.Model.User;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ namespace Organic.Domain.Model.Address
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdateAt { get; private set; }
         public Guid UserId { get; private set; }
+        public UserModel User { get; private set; }
 
         public AddressModel(string city, string fullAddress, string postalCode, Guid userId)
         {
