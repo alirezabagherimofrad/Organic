@@ -11,28 +11,21 @@ namespace Organic.Domain.Model.Address
         private AddressModel() { }
 
         public Guid Id { get; private set; }
-
         public string City { get; private set; }
-
         public string FullAddress { get; private set; }
-
         public string PostalCode { get; private set; }
-
         public DateTime CreatedAt { get; private set; }
-
         public DateTime UpdateAt { get; private set; }
+        public Guid UserId { get; private set; }
 
-        public AddressModel(string city, string fullAddress, string postalCode)
+        public AddressModel(string city, string fullAddress, string postalCode, Guid userId)
         {
             Id = Guid.NewGuid();
-
             City = city;
-
             FullAddress = fullAddress;
-
             PostalCode = postalCode;
-
             CreatedAt = DateTime.Now;
+            UserId=userId;
         }
     }
 }

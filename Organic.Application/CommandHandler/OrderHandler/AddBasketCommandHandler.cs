@@ -65,12 +65,9 @@ namespace Organic.Application.CommandHandler.OrderHandler
                     {
                         var newItem = new BasketItemModel(itemDto.ProductId, itemDto.Quantity, itemDto.UnitPrice);
 
-                        // این قسمت مهمه
                         basket.AddItem(newItem);
                     }
                 }
-
-                
                 await _BasketCommandRepository.Update(basket);
 
                 await _unitOfWork.SaveChangeAsync();

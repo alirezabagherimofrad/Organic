@@ -59,7 +59,6 @@ namespace Organic.Infrastructure.Context
                 .WithMany(u => u.ProductImages)
                 .HasForeignKey(ui => ui.ProductId);
 
-
             modelBuilder.Entity<ProductModel>()
                 .HasOne(ui => ui.ProductCategory)
                 .WithMany(u => u.Products)
