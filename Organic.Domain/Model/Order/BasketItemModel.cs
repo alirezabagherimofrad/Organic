@@ -13,6 +13,10 @@ namespace Organic.Domain.Model.Order
         public int Quantity { get; private set; }
         public int UnitPrice { get; private set; }
 
+
+        public Guid BasketId { get; private set; }
+        public Basket Basket { get; private set; }
+
         public int TotalPrice => Quantity * UnitPrice;
 
         public BasketItemModel(Guid productId, int quantity, int unitPrice)

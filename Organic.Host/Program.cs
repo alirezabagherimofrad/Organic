@@ -19,6 +19,7 @@ using Organic.Infrastructure.Context;
 using Organic.Infrastructure.DataSeeder;
 using Organic.Infrastructure.Middlewares;
 using Organic.Infrastructure.Repositories.GenericRepository;
+using Organic.Infrastructure.Repositories.ProductCategoryRepository;
 using Organic.Infrastructure.Repositories.UserRepository;
 using Organic.Infrastructure.Settings;
 using Organic.Infrastructure.UnitOfWork;
@@ -49,6 +50,7 @@ namespace Organic.Host
             builder.Services.AddScoped(typeof(IGenricQueryRepository<>), typeof(GenricQueryRepository<>));
             builder.Services.AddScoped<IGetUserQueryRepository, GetUserQueryRepository>();
             builder.Services.AddScoped<IUserQueryRepository, CrudUserRepository>();
+            builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 
 
             //Behavior

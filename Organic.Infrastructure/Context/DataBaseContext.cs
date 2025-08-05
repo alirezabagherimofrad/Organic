@@ -69,6 +69,11 @@ namespace Organic.Infrastructure.Context
                 .HasOne(oi => oi.Order)
                 .WithMany(o => o.OrderItems)
                 .HasForeignKey(oi => oi.OrderId);
+
+            modelBuilder.Entity<Basket>()
+                .HasMany(b => b.basketItemModels)
+                .WithOne(i => i.Basket)
+                .HasForeignKey(i => i.BasketId);
         }
     }
 }

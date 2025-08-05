@@ -19,43 +19,63 @@ namespace Organic.Application.CommandHandler.OrderHandler
         private readonly IGenricQueryRepository<Basket> _BasketQueryRepository;
         private readonly IGenricQueryRepository<UserModel> _UserQueryRepository;
         private readonly IUnitOfWork _unitOfWork;
-        public AddBasketCommandHandler(IGenricCommandRepository<Basket> basketCommandRepository, IGenricQueryRepository<Basket> baskeyQueryRepository, 
-            IGenricQueryRepository<UserModel> userQueryRepository, IUnitOfWork unitOfWork)
+        private readonly IBasketRepository _BasketRepository;
+        public AddBasketCommandHandler(IGenricCommandRepository<Basket> basketCommandRepository, IGenricQueryRepository<Basket> baskeyQueryRepository,
+            IGenricQueryRepository<UserModel> userQueryRepository, IUnitOfWork unitOfWork, IBasketRepository basketRepository)
         {
             _BasketCommandRepository = basketCommandRepository;
-            _BasketQueryRepository = _BasketQueryRepository;
+            _BasketQueryRepository = baskeyQueryRepository;
             _UserQueryRepository = userQueryRepository;
             _unitOfWork = unitOfWork;
+            _BasketRepository=basketRepository;
         }
 
         public async Task<string> Handle(AddBasketCommand request, CancellationToken cancellationToken)
         {
             var user = await _UserQueryRepository.GetByIdAsync(request.UserId);
-
             if (user == null)
-            {
-                //basket = new Basket(request.UserId);
-                //await _genricCommandRepository.Add(basket);
                 throw new Exception("User not found");
-            }
 
-            var basket = await _BasketQueryRepository.GetByIdAsync(request.UserId);
+            var basket = await _BasketRepository.basketwhitUserId(request.UserId);
+
             if (basket == null)
             {
                 basket = new Basket(request.UserId);
+                foreach (var itemDto in request.Items)
+                {
+                    var item = new BasketItemModel(itemDto.ProductId, itemDto.Quantity, itemDto.UnitPrice);
+                    basket.AddItem(item);
+                }
                 await _BasketCommandRepository.Add(basket);
+                await _unitOfWork.SaveChangeAsync();
+                return "Basket created and items added.";
             }
-
-            foreach (var itemDto in request.Items)
+            else
             {
-                var item = new BasketItemModel(itemDto.ProductId, itemDto.Quantity, itemDto.UnitPrice);
-                basket.AddItem(item);
+                foreach (var itemDto in request.Items)
+                {
+                    var existingItem = basket.basketItemModels
+                                             .FirstOrDefault(i => i.ProductId == itemDto.ProductId);
+
+                    if (existingItem != null)
+                    {
+                        existingItem.UpdateQuantity(existingItem.Quantity + itemDto.Quantity);
+                    }
+                    else
+                    {
+                        var newItem = new BasketItemModel(itemDto.ProductId, itemDto.Quantity, itemDto.UnitPrice);
+
+                        // این قسمت مهمه
+                        basket.AddItem(newItem);
+                    }
+                }
+
+                
+                await _BasketCommandRepository.Update(basket);
+
+                await _unitOfWork.SaveChangeAsync();
+                return "Basket updated successfully.";
             }
-
-            await _BasketCommandRepository.Update(basket);
-            await _unitOfWork.SaveChangeAsync();
-
-            return "Basket updated successfully.";
         }
     }
 }
