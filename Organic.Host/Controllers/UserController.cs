@@ -80,5 +80,25 @@ namespace Organic.Host.Controllers
         //    var result = await _mediator.Send(uplodeUserImageCommand);
         //    return Ok(result);
         //}
+
+        [HttpPost("upload-image")]
+        public async Task<IActionResult> UploadImage(IFormFile image, [FromServices] IMediator mediator)
+        {
+            if (image == null || image.Length == 0)
+                return BadRequest("Image is required.");
+
+            using var stream = image.OpenReadStream();
+
+            var fileName = Guid.NewGuid() + Path.GetExtension(image.FileName); // جلوگیری از نام تکراری
+
+            var command = new UploadImageCommand
+            {
+                ImageStream = stream,
+                FileName = fileName
+            };
+
+            await mediator.Send(command);
+            return Ok("Image uploaded successfully.");
+        }
     }
 }

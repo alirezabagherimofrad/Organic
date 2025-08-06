@@ -20,6 +20,7 @@ using Organic.Infrastructure.DataSeeder;
 using Organic.Infrastructure.Middlewares;
 using Organic.Infrastructure.Repositories.GenericRepository;
 using Organic.Infrastructure.Repositories.UserRepository;
+using Organic.Infrastructure.Services;
 using Organic.Infrastructure.Settings;
 using Organic.Infrastructure.UnitOfWork;
 using System.Text;
@@ -133,6 +134,10 @@ namespace Organic.Host
                      }
                 });
             });
+
+            builder.Services.Configure<MinioSettings>(
+                builder.Configuration.GetSection("MinioSettings"));
+            builder.Services.AddSingleton<IFileStorageService, MinioStorageService>();
 
 
             TypeAdapterConfig<RegisterUserCommand, UserModel>.NewConfig()
