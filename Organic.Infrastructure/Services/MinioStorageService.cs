@@ -5,9 +5,7 @@ using Microsoft.Extensions.Options;
 using Organic.Application.Interface;
 using Organic.Infrastructure.Settings;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Organic.Infrastructure.Services
@@ -23,31 +21,36 @@ namespace Organic.Infrastructure.Services
 
             var config = new AmazonS3Config
             {
-                ServiceURL = _settings.ServiceUrl, // مثل "http://localhost:9000" یا "localhost:9000"
+                ServiceURL = _settings.ServiceUrl,
                 ForcePathStyle = true,
-                UseHttp = true, // اگر ServiceURL با http است
-                RegionEndpoint = RegionEndpoint.GetBySystemName(_settings.Region)
+                UseHttp = _settings.ServiceUrl.StartsWith("http://")
             };
-
             _s3Client = new AmazonS3Client(_settings.AccessKey, _settings.SecretKey, config);
-
         }
 
         public async Task<string> UploadFileAsync(Stream fileStream, string fileName)
         {
-            var putRequest = new PutObjectRequest
+            try
             {
-                BucketName = _settings.BucketName,
-                Key = fileName,
-                InputStream = fileStream,
-                ContentType = "application/octet-stream"
-            };
+                var putRequest = new PutObjectRequest
+                {
+                    BucketName = _settings.BucketName,
+                    Key = fileName,
+                    InputStream = fileStream,
+                    ContentType = "application/octet-stream"
+                };
 
-            await _s3Client.PutObjectAsync(putRequest);
+                await _s3Client.PutObjectAsync(putRequest);
 
-            // ساخت URL فایل آپلودشده (فرض بر اینکه public هست یا URL معتبره)
-            var fileUrl = $"{_settings.ServiceUrl}/{_settings.BucketName}/{fileName}";
-            return fileUrl;
+                // ساخت URL به شکل استاندارد MinIO
+                var fileUrl = $"{_settings.ServiceUrl}/{_settings.BucketName}/{fileName}";
+                return fileUrl;
+            }
+            catch (Exception ex)
+            {
+                // لاگ یا مدیریت خطا
+                throw new Exception("Error uploading file to MinIO", ex);
+            }
         }
     }
 }

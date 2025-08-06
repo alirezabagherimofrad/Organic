@@ -152,6 +152,12 @@ namespace Organic.Host
 
             builder.Services.AddHttpContextAccessor();
 
+            builder.Services.AddLogging(logging =>
+            {
+                logging.AddConsole();
+                logging.AddDebug();
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
