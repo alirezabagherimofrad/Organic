@@ -32,6 +32,7 @@ namespace Organic.Infrastructure.Context
         public DbSet<OrderModel> OrderModels { get; set; }
         public DbSet<DiscountModel> discountModels { get; set; }
         public DbSet<AddressModel> addressModels { get; set; }
+        public DbSet<miniomodel> miniomodels { get; set; }
 
 
 
