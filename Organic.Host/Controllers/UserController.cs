@@ -80,5 +80,19 @@ namespace Organic.Host.Controllers
         //    var result = await _mediator.Send(uplodeUserImageCommand);
         //    return Ok(result);
         //}
+
+        [HttpPost("Add_Address")]
+        public async Task<IActionResult> AddAddress([FromBody]AddAddressCommand addAddressCommand)
+        {
+            var result = await _mediator.Send(addAddressCommand);
+            return Ok(result);
+        }
+
+        [HttpPut("Update_Database")]
+        public async Task<IActionResult>  UpdateDatabase([FromBody] UpdateAddressCommand updateAddressCommand)
+        {
+            var result = await _mediator.Send(updateAddressCommand);
+            return Ok(result);
+        }
     }
 }

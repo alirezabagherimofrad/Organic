@@ -26,8 +26,22 @@ namespace Organic.Domain.Model.Address
             City = city;
             FullAddress = fullAddress;
             PostalCode = postalCode;
-            CreatedAt = DateTime.Now;
             UserId=userId;
+        }
+        public void AddAddress(Guid userId,string city, string fullAddress, string postalCode)
+        {
+            UserId = userId;
+            City = city;
+            FullAddress = fullAddress;
+            PostalCode = postalCode;
+            CreatedAt = DateTime.Now;
+        }
+        public void UpdateAddress(string city, string fullAddress, string postalCode)
+        {
+            City = city;
+            FullAddress = fullAddress;
+            PostalCode = postalCode;
+            UpdateAt = DateTime.Now;
         }
     }
 }

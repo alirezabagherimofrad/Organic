@@ -12,8 +12,8 @@ using Organic.Infrastructure.Context;
 namespace Organic.Infrastructure.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20250805131251_EditModelAddress")]
-    partial class EditModelAddress
+    [Migration("20250807234057_initnew")]
+    partial class initnew
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
