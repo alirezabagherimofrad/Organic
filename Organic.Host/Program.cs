@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Organic.Application.Behaviors;
+using Organic.Application.Command.MessageCommand;
 using Organic.Application.Command.User;
 using Organic.Application.CommandHandler.UserHandler;
 using Organic.Application.DTO;
@@ -14,6 +15,7 @@ using Organic.Application.Service;
 using Organic.Domain.Interface;
 using Organic.Domain.Interface.UnitOfWorkInterface;
 using Organic.Domain.Interface.UserInterfase;
+using Organic.Domain.Model.Message;
 using Organic.Domain.Model.User;
 using Organic.Infrastructure.Context;
 using Organic.Infrastructure.DataSeeder;
@@ -146,6 +148,14 @@ namespace Organic.Host
                     src.Password,
                     src.Gender
                 ));
+
+            TypeAdapterConfig<MessageCommand, MessageModel>.NewConfig()
+                .ConstructUsing(src => new MessageModel(
+                    src.FullName,
+                    src.Title,
+                    src.Description,
+                    Status.Not_answered,  // مثلا مقدار پیش‌فرض
+                    src.Email));
 
             builder.Services.AddHttpContextAccessor();
 

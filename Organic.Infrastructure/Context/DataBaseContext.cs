@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Organic.Domain.Model.Address;
 using Organic.Domain.Model.Discount;
+using Organic.Domain.Model.Message;
 using Organic.Domain.Model.Order;
 using Organic.Domain.Model.Product;
 using Organic.Domain.Model.User;
@@ -32,6 +33,7 @@ namespace Organic.Infrastructure.Context
         public DbSet<OrderModel> OrderModels { get; set; }
         public DbSet<DiscountModel> discountModels { get; set; }
         public DbSet<AddressModel> addressModels { get; set; }
+        public DbSet<MessageModel> massegeModels { get; set; }
 
 
 
@@ -48,6 +50,15 @@ namespace Organic.Infrastructure.Context
                 entity.Property(x => x.Password).IsRequired().HasMaxLength(30);
                 entity.Property(x => x.PhoneNumber).IsRequired().HasMaxLength(11);
             });
+
+            modelBuilder.Entity<MessageModel>(entity => 
+            {
+                entity.Property(x => x.FullName).IsRequired().HasMaxLength(50);
+                entity.Property(x => x.Email).IsRequired();
+                entity.Property(x => x.Title).IsRequired().HasMaxLength(50);
+                entity.Property(x => x.Description).IsRequired().HasMaxLength(100);
+            });
+
 
             modelBuilder.Entity<UserImageModel>()
                     .HasOne(ui => ui.User)

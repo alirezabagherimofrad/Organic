@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Organic.Application.Command.MessageCommand;
 using Organic.Application.Command.User;
 using static Organic.Application.DTO.LoginResultDto;
 using static Organic.Application.DTO.UpdateRegisterDTO;
@@ -27,6 +28,8 @@ namespace Organic.Host.Controllers
             var result = await _mediator.Send(command);
             return Ok(result);
         }
+
+        //[Authorize]
         [HttpPut("Update")]
         public async Task<IActionResult> UpdtaeUser([FromBody] UpdateUserParameter updateuserParameter)
         {
@@ -73,14 +76,7 @@ namespace Organic.Host.Controllers
             return Ok(result);
         }
 
-        //[HttpPost("Deleted_Image")]
-        //[Consumes("multipart/form-data")]
-        //public async Task<IActionResult> UploadImage([FromForm] UplodeUserImageCommand uplodeUserImageCommand)
-        //{
-        //    var result = await _mediator.Send(uplodeUserImageCommand);
-        //    return Ok(result);
-        //}
-
+        //[Authorize]
         [HttpPost("Add_Address")]
         public async Task<IActionResult> AddAddress([FromBody]AddAddressCommand addAddressCommand)
         {
@@ -88,11 +84,21 @@ namespace Organic.Host.Controllers
             return Ok(result);
         }
 
-        [HttpPut("Update_Database")]
+        //[Authorize]
+        [HttpPut("Update_Address")]
         public async Task<IActionResult>  UpdateDatabase([FromBody] UpdateAddressCommand updateAddressCommand)
         {
             var result = await _mediator.Send(updateAddressCommand);
             return Ok(result);
         }
+
+        //[Authorize]
+        [HttpPost("Send_message")]
+        public async Task<IActionResult> sendmessage([FromBody] MessageCommand messageCommand)
+        {
+            var result = await _mediator.Send(messageCommand);
+            return Ok(result);
+        }
+
     }
 }
