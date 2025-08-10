@@ -56,6 +56,7 @@ namespace Organic.Host
             builder.Services.AddScoped<IGetUserQueryRepository, GetUserQueryRepository>();
             builder.Services.AddScoped<IUserQueryRepository, CrudUserRepository>();
             builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+            builder.Services.AddScoped<IfavoriteslistQueryRepository, favoriteslistQueryRepository>();
 
 
             //Behavior

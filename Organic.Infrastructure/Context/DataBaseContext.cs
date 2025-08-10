@@ -35,6 +35,7 @@ namespace Organic.Infrastructure.Context
         public DbSet<AddressModel> addressModels { get; set; }
         public DbSet<MessageModel> massegeModels { get; set; }
         public DbSet<Point_of_viewModel> point_Of_Views { get; set; }
+        public DbSet<FavoriteslistModel> favoriteslistModels { get; set; }
 
 
 

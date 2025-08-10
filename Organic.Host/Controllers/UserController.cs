@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Organic.Application.Command.Message;
 using Organic.Application.Command.MessageCommand;
+using Organic.Application.Command.Product;
 using Organic.Application.Command.User;
 using static Organic.Application.DTO.LoginResultDto;
 using static Organic.Application.DTO.UpdateRegisterDTO;
@@ -79,7 +80,7 @@ namespace Organic.Host.Controllers
 
         [Authorize]
         [HttpPost("Add_Address")]
-        public async Task<IActionResult> AddAddress([FromBody]AddAddressCommand addAddressCommand)
+        public async Task<IActionResult> AddAddress([FromBody] AddAddressCommand addAddressCommand)
         {
             var result = await _mediator.Send(addAddressCommand);
             return Ok(result);
@@ -87,7 +88,7 @@ namespace Organic.Host.Controllers
 
         [Authorize]
         [HttpPut("Update_Address")]
-        public async Task<IActionResult>  UpdateDatabase([FromBody] UpdateAddressCommand updateAddressCommand)
+        public async Task<IActionResult> UpdateDatabase([FromBody] UpdateAddressCommand updateAddressCommand)
         {
             var result = await _mediator.Send(updateAddressCommand);
             return Ok(result);
@@ -109,5 +110,12 @@ namespace Organic.Host.Controllers
             return Ok(result);
         }
 
+        //[Authorize]
+        [HttpPost("Faviorit")]
+        public async Task<IActionResult> Faviorit([FromBody] FavoriteslistCommand favoriteslistCommand)
+        {
+            var result = await _mediator.Send(favoriteslistCommand);
+            return Ok(result);
+        }
     }
 }
