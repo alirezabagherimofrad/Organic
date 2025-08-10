@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Organic.Application.Behaviors;
+using Organic.Application.Command.Message;
 using Organic.Application.Command.MessageCommand;
 using Organic.Application.Command.User;
 using Organic.Application.CommandHandler.UserHandler;
@@ -154,8 +155,20 @@ namespace Organic.Host
                     src.FullName,
                     src.Title,
                     src.Description,
-                    Status.Not_answered,  // مثلا مقدار پیش‌فرض
+                    Status.Not_answered, 
                     src.Email));
+
+
+            TypeAdapterConfig<Point_of_viewCommand, Point_of_viewModel>.NewConfig()
+                .ConstructUsing(src => new Point_of_viewModel(
+                    "0",
+                    string.Empty,
+                    src.Full_Name,
+                    DateTime.Now,
+                    string.Empty,
+                    src.Email,
+                    src.Description
+                ));
 
             builder.Services.AddHttpContextAccessor();
 

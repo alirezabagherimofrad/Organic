@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Organic.Application.Command.Message;
 using Organic.Application.Command.MessageCommand;
 using Organic.Application.Command.User;
 using static Organic.Application.DTO.LoginResultDto;
@@ -97,6 +98,14 @@ namespace Organic.Host.Controllers
         public async Task<IActionResult> sendmessage([FromBody] MessageCommand messageCommand)
         {
             var result = await _mediator.Send(messageCommand);
+            return Ok(result);
+        }
+
+        //[Authorize]
+        [HttpPost("message")]
+        public async Task<IActionResult> message([FromBody] Point_of_viewCommand point_Of_ViewCommand)
+        {
+            var result = await _mediator.Send(point_Of_ViewCommand);
             return Ok(result);
         }
 

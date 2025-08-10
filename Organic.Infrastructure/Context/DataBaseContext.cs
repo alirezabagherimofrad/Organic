@@ -34,6 +34,7 @@ namespace Organic.Infrastructure.Context
         public DbSet<DiscountModel> discountModels { get; set; }
         public DbSet<AddressModel> addressModels { get; set; }
         public DbSet<MessageModel> massegeModels { get; set; }
+        public DbSet<Point_of_viewModel> point_Of_Views { get; set; }
 
 
 
