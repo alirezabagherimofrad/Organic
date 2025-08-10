@@ -30,7 +30,7 @@ namespace Organic.Host.Controllers
             return Ok(result);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPut("Update")]
         public async Task<IActionResult> UpdtaeUser([FromBody] UpdateUserParameter updateuserParameter)
         {
@@ -68,7 +68,7 @@ namespace Organic.Host.Controllers
             return Ok(result);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost("Upload_Image")]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> UploadImage([FromForm] UplodeUserImageCommand uplodeUserImageCommand)
@@ -77,7 +77,7 @@ namespace Organic.Host.Controllers
             return Ok(result);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost("Add_Address")]
         public async Task<IActionResult> AddAddress([FromBody]AddAddressCommand addAddressCommand)
         {
@@ -85,7 +85,7 @@ namespace Organic.Host.Controllers
             return Ok(result);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPut("Update_Address")]
         public async Task<IActionResult>  UpdateDatabase([FromBody] UpdateAddressCommand updateAddressCommand)
         {
@@ -93,7 +93,7 @@ namespace Organic.Host.Controllers
             return Ok(result);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost("Send_message")]
         public async Task<IActionResult> sendmessage([FromBody] MessageCommand messageCommand)
         {
@@ -101,7 +101,7 @@ namespace Organic.Host.Controllers
             return Ok(result);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost("message")]
         public async Task<IActionResult> message([FromBody] Point_of_viewCommand point_Of_ViewCommand)
         {

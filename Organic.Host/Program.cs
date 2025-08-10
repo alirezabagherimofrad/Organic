@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using Organic.Application.Behaviors;
 using Organic.Application.Command.Message;
 using Organic.Application.Command.MessageCommand;
+using Organic.Application.Command.Product;
 using Organic.Application.Command.User;
 using Organic.Application.CommandHandler.UserHandler;
 using Organic.Application.DTO;
@@ -17,6 +18,7 @@ using Organic.Domain.Interface;
 using Organic.Domain.Interface.UnitOfWorkInterface;
 using Organic.Domain.Interface.UserInterfase;
 using Organic.Domain.Model.Message;
+using Organic.Domain.Model.Product;
 using Organic.Domain.Model.User;
 using Organic.Infrastructure.Context;
 using Organic.Infrastructure.DataSeeder;
@@ -155,7 +157,7 @@ namespace Organic.Host
                     src.FullName,
                     src.Title,
                     src.Description,
-                    Status.Not_answered, 
+                    Status.Not_answered,
                     src.Email));
 
 
@@ -168,6 +170,12 @@ namespace Organic.Host
                     string.Empty,
                     src.Email,
                     src.Description
+                ));
+
+            TypeAdapterConfig<FavoriteslistCommand, FavoriteslistModel>.NewConfig()
+                .ConstructUsing(src => new FavoriteslistModel(
+                    src.UserId,
+                    src.ProductId
                 ));
 
             builder.Services.AddHttpContextAccessor();
