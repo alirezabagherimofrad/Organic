@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Mapster;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Organic.Application.Command.Product;
 using Organic.Domain.Interface;
@@ -34,21 +35,22 @@ namespace Organic.Application.CommandHandler.ProductHandler
 
         public async Task<string> Handle(FavoriteslistCommand request, CancellationToken cancellationToken)
         {
-            var currentUserId = _contextAccessor.HttpContext?.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            if (string.IsNullOrEmpty(currentUserId))
-                return "کاربر احراز هویت نشده است.";
+            //var currentUserId = _contextAccessor.HttpContext?.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            //if (string.IsNullOrEmpty(currentUserId))
+            //    return "کاربر احراز هویت نشده است.";
 
-            var userId = Guid.Parse(currentUserId);
-            var user = await _UserQueryRepository.GetByIdAsync(userId);
+            //var userId = Guid.Parse(currentUserId);
+            var user = await _UserQueryRepository.GetByIdAsync(request.UserId);
             if (user == null)
             {
                 return "کاربر یافت نشد.";
             }
 
-            var product = await _favoriteslistQueryRepository.favoriteslist(userId, request.ProductId);
+            var product = await _favoriteslistQueryRepository.favoriteslist(user.Id, request.ProductId);
             if (product == null)
             {
-                await _FavoritCommandRepository.Add(product);
+                var Addproduct = request.Adapt<FavoriteslistModel>();
+                await _FavoritCommandRepository.Add(Addproduct);
                 await _unitOfWork.SaveChangeAsync();
                 return "کالا در فهرست علاقه مندی ها قرار گرفت.";
             }
