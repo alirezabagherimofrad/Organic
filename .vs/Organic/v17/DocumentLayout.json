@@ -1,0 +1,126 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Private folder\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{47897B10-BC07-48D2-831B-E6CB6E445670}|Organic.Application\\Organic.Application.csproj|c:\\private folder\\organic.application\\commandhandler\\userhandler\\favoriteslistcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47897B10-BC07-48D2-831B-E6CB6E445670}|Organic.Application\\Organic.Application.csproj|solutionrelative:organic.application\\commandhandler\\userhandler\\favoriteslistcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6A4CAC50-2A3F-46ED-B20D-E596E13D2475}|Organic.Domain\\Organic.Domain.csproj|c:\\private folder\\organic.domain\\model\\user\\favoriteslistmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A4CAC50-2A3F-46ED-B20D-E596E13D2475}|Organic.Domain\\Organic.Domain.csproj|solutionrelative:organic.domain\\model\\user\\favoriteslistmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47897B10-BC07-48D2-831B-E6CB6E445670}|Organic.Application\\Organic.Application.csproj|c:\\private folder\\organic.application\\command\\user\\favoriteslistcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47897B10-BC07-48D2-831B-E6CB6E445670}|Organic.Application\\Organic.Application.csproj|solutionrelative:organic.application\\command\\user\\favoriteslistcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6A4CAC50-2A3F-46ED-B20D-E596E13D2475}|Organic.Domain\\Organic.Domain.csproj|c:\\private folder\\organic.domain\\model\\product\\productmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A4CAC50-2A3F-46ED-B20D-E596E13D2475}|Organic.Domain\\Organic.Domain.csproj|solutionrelative:organic.domain\\model\\product\\productmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE7EFD0A-FB6A-4ED8-A235-1FCDC95F97F7}|Organic.Host\\Organic.Host.csproj|c:\\private folder\\organic.host\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE7EFD0A-FB6A-4ED8-A235-1FCDC95F97F7}|Organic.Host\\Organic.Host.csproj|solutionrelative:organic.host\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE7EFD0A-FB6A-4ED8-A235-1FCDC95F97F7}|Organic.Host\\Organic.Host.csproj|c:\\private folder\\organic.host\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE7EFD0A-FB6A-4ED8-A235-1FCDC95F97F7}|Organic.Host\\Organic.Host.csproj|solutionrelative:organic.host\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProductModel.cs",
+              "DocumentMoniker": "C:\\Private folder\\Organic.Domain\\Model\\Product\\ProductModel.cs",
+              "RelativeDocumentMoniker": "Organic.Domain\\Model\\Product\\ProductModel.cs",
+              "ToolTip": "C:\\Private folder\\Organic.Domain\\Model\\Product\\ProductModel.cs",
+              "RelativeToolTip": "Organic.Domain\\Model\\Product\\ProductModel.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAxwBQAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-11T07:14:37.25Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Private folder\\Organic.Host\\Program.cs",
+              "RelativeDocumentMoniker": "Organic.Host\\Program.cs",
+              "ToolTip": "C:\\Private folder\\Organic.Host\\Program.cs",
+              "RelativeToolTip": "Organic.Host\\Program.cs",
+              "ViewState": "AgIAAJwAAAAAAAAAAAD4v6cAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-11T06:20:02.16Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Private folder\\Organic.Host\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Organic.Host\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Private folder\\Organic.Host\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Organic.Host\\Controllers\\UserController.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAkwAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-11T05:22:00.473Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FavoriteslistCommand.cs",
+              "DocumentMoniker": "C:\\Private folder\\Organic.Application\\Command\\User\\FavoriteslistCommand.cs",
+              "RelativeDocumentMoniker": "Organic.Application\\Command\\User\\FavoriteslistCommand.cs",
+              "ToolTip": "C:\\Private folder\\Organic.Application\\Command\\User\\FavoriteslistCommand.cs",
+              "RelativeToolTip": "Organic.Application\\Command\\User\\FavoriteslistCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-11T05:21:40.562Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FavoriteslistCommandHandler.cs",
+              "DocumentMoniker": "C:\\Private folder\\Organic.Application\\CommandHandler\\UserHandler\\FavoriteslistCommandHandler.cs",
+              "RelativeDocumentMoniker": "Organic.Application\\CommandHandler\\UserHandler\\FavoriteslistCommandHandler.cs",
+              "ToolTip": "C:\\Private folder\\Organic.Application\\CommandHandler\\UserHandler\\FavoriteslistCommandHandler.cs",
+              "RelativeToolTip": "Organic.Application\\CommandHandler\\UserHandler\\FavoriteslistCommandHandler.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAwwD4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-11T05:20:59.558Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FavoriteslistModel.cs",
+              "DocumentMoniker": "C:\\Private folder\\Organic.Domain\\Model\\User\\FavoriteslistModel.cs",
+              "RelativeDocumentMoniker": "Organic.Domain\\Model\\User\\FavoriteslistModel.cs",
+              "ToolTip": "C:\\Private folder\\Organic.Domain\\Model\\User\\FavoriteslistModel.cs",
+              "RelativeToolTip": "Organic.Domain\\Model\\User\\FavoriteslistModel.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAkAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-11T05:20:22.868Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
