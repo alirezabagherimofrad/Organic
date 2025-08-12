@@ -1,0 +1,13 @@
+D:\Private folder\Organic.Domain\bin\Debug\net8.0\Organic.Domain.deps.json
+D:\Private folder\Organic.Domain\bin\Debug\net8.0\Organic.Domain.dll
+D:\Private folder\Organic.Domain\bin\Debug\net8.0\Organic.Domain.pdb
+D:\Private folder\Organic.Domain\obj\Debug\net8.0\Organic.Domain.csproj.AssemblyReference.cache
+D:\Private folder\Organic.Domain\obj\Debug\net8.0\Organic.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Private folder\Organic.Domain\obj\Debug\net8.0\Organic.Domain.AssemblyInfoInputs.cache
+D:\Private folder\Organic.Domain\obj\Debug\net8.0\Organic.Domain.AssemblyInfo.cs
+D:\Private folder\Organic.Domain\obj\Debug\net8.0\Organic.Domain.csproj.CoreCompileInputs.cache
+D:\Private folder\Organic.Domain\obj\Debug\net8.0\Organic.Domain.sourcelink.json
+D:\Private folder\Organic.Domain\obj\Debug\net8.0\Organic.Domain.dll
+D:\Private folder\Organic.Domain\obj\Debug\net8.0\refint\Organic.Domain.dll
+D:\Private folder\Organic.Domain\obj\Debug\net8.0\Organic.Domain.pdb
+D:\Private folder\Organic.Domain\obj\Debug\net8.0\ref\Organic.Domain.dll

@@ -1,0 +1,16 @@
+D:\Private folder\Organic.Application\bin\Debug\net8.0\Organic.Application.deps.json
+D:\Private folder\Organic.Application\bin\Debug\net8.0\Organic.Application.dll
+D:\Private folder\Organic.Application\bin\Debug\net8.0\Organic.Application.pdb
+D:\Private folder\Organic.Application\bin\Debug\net8.0\Organic.Domain.dll
+D:\Private folder\Organic.Application\bin\Debug\net8.0\Organic.Domain.pdb
+D:\Private folder\Organic.Application\obj\Debug\net8.0\Organic.Application.csproj.AssemblyReference.cache
+D:\Private folder\Organic.Application\obj\Debug\net8.0\Organic.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\Private folder\Organic.Application\obj\Debug\net8.0\Organic.Application.AssemblyInfoInputs.cache
+D:\Private folder\Organic.Application\obj\Debug\net8.0\Organic.Application.AssemblyInfo.cs
+D:\Private folder\Organic.Application\obj\Debug\net8.0\Organic.Application.csproj.CoreCompileInputs.cache
+D:\Private folder\Organic.Application\obj\Debug\net8.0\Organic.Application.sourcelink.json
+D:\Private folder\Organic.Application\obj\Debug\net8.0\Organic..54C66BE7.Up2Date
+D:\Private folder\Organic.Application\obj\Debug\net8.0\Organic.Application.dll
+D:\Private folder\Organic.Application\obj\Debug\net8.0\refint\Organic.Application.dll
+D:\Private folder\Organic.Application\obj\Debug\net8.0\Organic.Application.pdb
+D:\Private folder\Organic.Application\obj\Debug\net8.0\ref\Organic.Application.dll
