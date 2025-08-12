@@ -61,7 +61,17 @@ namespace Organic.Application.CommandHandler.UserHandler
                     return "محصول یافت نشد.";
                 }
 
-                var Addproduct = new FavoriteslistModel(user.Id, request.ProductId, checkproduct.Name, checkproduct.Stock);
+                FavoriteslistModel.checkproduct productStatus;
+                if (checkproduct.Stock <= 0)
+                {
+                    productStatus = FavoriteslistModel.checkproduct.Not_available;
+                }
+                else
+                {
+                    productStatus = FavoriteslistModel.checkproduct.Available;
+                }
+
+                var Addproduct = new FavoriteslistModel(user.Id, request.ProductId, checkproduct.Name, productStatus);
                 await _FavoritCommandRepository.Add(Addproduct);
                 await _unitOfWork.SaveChangeAsync();
                 return "کالا در فهرست علاقه مندی ها قرار گرفت.";

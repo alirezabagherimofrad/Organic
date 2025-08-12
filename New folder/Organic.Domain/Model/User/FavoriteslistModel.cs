@@ -14,7 +14,6 @@ namespace Organic.Domain.Model.User
         public Guid ProductId { get; private set; }
         // با توجه به figma
         public string ProductName { get; private set; } = string.Empty;
-        public int? Stock {  get; private set; }
         public checkproduct Checkproduct { get; private set; }
 
         public DateTime AddAt { get; private set; } = DateTime.Now;
@@ -25,7 +24,6 @@ namespace Organic.Domain.Model.User
             UserId=userId;
             ProductId=productId;
             ProductName = productName;
-            //Stock=stock;
             Checkproduct =  checkproduct;
         }
 
