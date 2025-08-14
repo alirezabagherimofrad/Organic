@@ -1,4 +1,5 @@
-﻿
+﻿using Asp.Versioning;
+using Asp.Versioning.ApiExplorer;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -23,7 +24,6 @@ using Organic.Infrastructure.Repositories.UserRepository;
 using Organic.Infrastructure.Settings;
 using Organic.Infrastructure.UnitOfWork;
 using System.Text;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Organic.Host
 {
@@ -33,42 +33,33 @@ namespace Organic.Host
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
+            // Controllers
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
 
-            // Database Context Settings
+            // Database
             builder.Services.AddDbContext<DataBaseContext>(options =>
-             options.UseSqlServer(builder.Configuration.GetConnectionString("Organic")));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("Organic")));
 
-            //Repository and IRepository
+            // Repository
             builder.Services.AddScoped(typeof(IGenricCommandRepository<>), typeof(GenricCommandRepository<>));
             builder.Services.AddScoped(typeof(IGenricQueryRepository<>), typeof(GenricQueryRepository<>));
             builder.Services.AddScoped<IGetUserQueryRepository, GetUserQueryRepository>();
             builder.Services.AddScoped<ICrudUserRepository, CrudUserRepository>();
 
-
-            //Behavior
+            // MediatR
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            builder.Services.AddMediatR(cfg =>
+                cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommandHandler).Assembly));
 
-            // ثبت MediatR
-            builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommandHandler).Assembly));
-
-            //command , commandHandler
             builder.Services.AddScoped<IRequestHandler<RegisterUserCommand, string>, RegisterUserCommandHandler>();
             builder.Services.AddScoped<IRequestHandler<LoginUserCommand, LoginResultDto>, LoginUserCommandHandler>();
             builder.Services.AddScoped<IRequestHandler<UplodeUserImageCommand, string>, UplodeUserImageCommandHandler>();
 
-            //unit of work
+            // Unit of Work & Services
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
             builder.Services.AddScoped<IJwtService, JwtService>();
 
-
-            // Jwt Token Settings
+            // JWT Authentication
             var jwtSettingsSection = builder.Configuration.GetSection("Jwt");
             builder.Services.Configure<JwtSettings>(jwtSettingsSection);
             var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
@@ -77,37 +68,42 @@ namespace Organic.Host
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             })
             .AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;
                 options.SaveToken = true;
-
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(jwtSettings.Key)
-                    ),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key)),
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     ClockSkew = TimeSpan.Zero
                 };
             });
 
-            // Swagger Settings
-            builder.Services.AddEndpointsApiExplorer();
+            // API Versioning
+            builder.Services.AddApiVersioning(options =>
+            {
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ReportApiVersions = true;
+                options.ApiVersionReader = ApiVersionReader.Combine(
+                    new UrlSegmentApiVersionReader(),
+                    new HeaderApiVersionReader("X-Api-Version")
+                );
+            })
+            .AddApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+                options.SubstituteApiVersionInUrl = true;
+            });
 
+            // Swagger
+            builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "Organic API",
-                    Version = "v1"
-                });
-
-                // تعریف نوع احراز هویت JWT Bearer
                 var jwtSecurityScheme = new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
@@ -124,17 +120,26 @@ namespace Organic.Host
                 };
 
                 options.AddSecurityDefinition("Bearer", jwtSecurityScheme);
-
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
-                     {
-                       jwtSecurityScheme,
-                       Array.Empty<string>()
-                     }
+                    { jwtSecurityScheme, Array.Empty<string>() }
                 });
+
+                // اضافه کردن SwaggerDoc برای همه نسخه‌ها
+                var provider = builder.Services.BuildServiceProvider()
+                                .GetRequiredService<IApiVersionDescriptionProvider>();
+
+                foreach (var description in provider.ApiVersionDescriptions)
+                {
+                    options.SwaggerDoc(description.GroupName, new OpenApiInfo
+                    {
+                        Title = $"Organic API Version {description.ApiVersion.MajorVersion}",
+                        Version = description.ApiVersion.ToString()
+                    });
+                }
             });
 
-
+            // Mapster Mapping
             TypeAdapterConfig<RegisterUserCommand, UserModel>.NewConfig()
                 .ConstructUsing(src => new UserModel(
                     src.First_Name,
@@ -149,32 +154,36 @@ namespace Organic.Host
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            //Seed Data
+            // Seed Data
             using (var scope = app.Services.CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<DataBaseContext>();
-
                 await AdminSeeder.SeedUserAsync(context);
             }
+
+            // Swagger UI
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+                app.UseSwaggerUI(options =>
+                {
+                    foreach (var description in provider.ApiVersionDescriptions)
+                    {
+                        options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
+                                                description.GroupName.ToUpperInvariant());
+                    }
+                });
+            }
+
+            // Middlewares
             app.UseStaticFiles();
             app.UseHttpsRedirection();
-
             app.UseMiddleware<ExceptionHandlingMiddleware>();
-
             app.UseAuthentication();
             app.UseAuthorization();
 
-
-
             app.MapControllers();
-
             app.Run();
         }
     }

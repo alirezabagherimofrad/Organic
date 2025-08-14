@@ -1,16 +1,18 @@
-﻿using MediatR;
+﻿using Asp.Versioning;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Organic.Application.Command.Product;
 
-namespace Organic.Host.Controllers
+namespace Organic.Host.Controllers.ProductController
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    [ApiVersion("2.0")]
+    public class ProductController2 : ControllerBase
     {
         private readonly IMediator _mediator;
-        public ProductController(IMediator mediator)
+        public ProductController2(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -22,6 +24,5 @@ namespace Organic.Host.Controllers
 
             return Ok(result);
         }
-
     }
 }
