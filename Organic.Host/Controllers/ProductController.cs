@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Organic.Application.Command.Product;
+using Organic.Application.CommandHandler.ProductHandler;
 
 namespace Organic.Host.Controllers
 {
@@ -19,6 +20,22 @@ namespace Organic.Host.Controllers
         public async Task<IActionResult> AddProduct([FromForm] AddProductCommand Command)
         {
             var result = await _mediator.Send(Command);
+
+            return Ok(result);
+        }
+
+        [HttpDelete("DeleteProduct")]
+        public async Task<IActionResult> DeleteProduct(DeleteProductCommand Commad)
+        {
+            var result = await _mediator.Send(Commad);
+
+            return Ok(result);
+        }
+
+        [HttpPatch("UpdateProduct")]
+        public async Task<IActionResult> UpdateProduct([FromForm] UpdateProductCommand updateProductCommand)
+        {
+            var result = await _mediator.Send(updateProductCommand);
 
             return Ok(result);
         }
