@@ -18,11 +18,13 @@ using Organic.Domain.Model.User;
 using Organic.Infrastructure.Context;
 using Organic.Infrastructure.DataSeeder;
 using Organic.Infrastructure.Middlewares;
+using Organic.Infrastructure.Repositories;
 using Organic.Infrastructure.Repositories.GenericRepository;
 using Organic.Infrastructure.Repositories.UserRepository;
 using Organic.Infrastructure.Services;
 using Organic.Infrastructure.Settings;
 using Organic.Infrastructure.UnitOfWork;
+using StackExchange.Redis;
 using System.Text;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
@@ -157,6 +159,18 @@ namespace Organic.Host
                 logging.AddConsole();
                 logging.AddDebug();
             });
+
+
+            // اتصال به Redis
+            builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+            {
+                var configuration = ConfigurationOptions.Parse("localhost:6379");
+                return ConnectionMultiplexer.Connect(configuration);
+            });
+
+            // ثبت RedisCacheService
+            builder.Services.AddScoped<ICacheService, RedisCacheService>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
             var app = builder.Build();
 
