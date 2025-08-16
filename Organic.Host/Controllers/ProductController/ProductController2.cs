@@ -18,7 +18,7 @@ namespace Organic.Host.Controllers.ProductController
         }
 
         [HttpPost("AddProduct")]
-        public async Task<IActionResult> AddProduct([FromForm] AddProductCommand Command)
+        public async Task<IActionResult> AddProduct([FromForm] AddProductCommand2 Command)
         {
             var result = await _mediator.Send(Command);
 
