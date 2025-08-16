@@ -1,6 +1,9 @@
 ﻿using MediatR;
 using Organic.Application.Command.User;
+using Organic.Domain.Interface;
 using Organic.Domain.Interface.UnitOfWorkInterface;
+using Organic.Domain.Interface.UserInterfase;
+using Organic.Domain.Model.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +15,18 @@ namespace Organic.Application.CommandHandler.UserHandler
     public class RequestOtpCommandHandler : IRequestHandler<RequestOtpCommand, string>
     {
         private readonly IUnitOfWork _unitOfWork;
-        public RequestOtpCommandHandler(IUnitOfWork unitOfWork)
+        private readonly IGetUserQueryRepository _getUserQueryRepository;
+
+        public RequestOtpCommandHandler(IUnitOfWork unitOfWork, IGetUserQueryRepository getUserQueryRepository)
         {
             _unitOfWork = unitOfWork;
+            _getUserQueryRepository = getUserQueryRepository;
+
         }
 
         public async Task<string> Handle(RequestOtpCommand request, CancellationToken cancellationToken)
         {
-            var user = await _unitOfWork.UserQueryRepository().GetByPhoneNumber(request.PhoneNumber);
+            var user = await _getUserQueryRepository.GetByPhoneNumber(request.PhoneNumber);
             if(user == null)
             {
                 return "کاربری یافت نشد.";

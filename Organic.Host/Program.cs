@@ -21,6 +21,7 @@ using Organic.Infrastructure.DataSeeder;
 using Organic.Infrastructure.Middlewares;
 using Organic.Infrastructure.Repositories.GenericRepository;
 using Organic.Infrastructure.Repositories.UserRepository;
+using Organic.Infrastructure.Services;
 using Organic.Infrastructure.Settings;
 using Organic.Infrastructure.UnitOfWork;
 using System.Text;
@@ -44,7 +45,7 @@ namespace Organic.Host
             builder.Services.AddScoped(typeof(IGenricCommandRepository<>), typeof(GenricCommandRepository<>));
             builder.Services.AddScoped(typeof(IGenricQueryRepository<>), typeof(GenricQueryRepository<>));
             builder.Services.AddScoped<IGetUserQueryRepository, GetUserQueryRepository>();
-            builder.Services.AddScoped<ICrudUserRepository, CrudUserRepository>();
+            builder.Services.AddScoped<IUserQueryRepository, CrudUserRepository>();
 
             // MediatR
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
@@ -140,6 +141,11 @@ namespace Organic.Host
             });
 
             // Mapster Mapping
+            builder.Services.Configure<MinioSettings>(
+                builder.Configuration.GetSection("MinioSettings"));
+            builder.Services.AddSingleton<IFileStorageService, MinioStorageService>();
+
+
             TypeAdapterConfig<RegisterUserCommand, UserModel>.NewConfig()
                 .ConstructUsing(src => new UserModel(
                     src.First_Name,
@@ -151,6 +157,12 @@ namespace Organic.Host
                 ));
 
             builder.Services.AddHttpContextAccessor();
+
+            builder.Services.AddLogging(logging =>
+            {
+                logging.AddConsole();
+                logging.AddDebug();
+            });
 
             var app = builder.Build();
 
@@ -177,6 +189,15 @@ namespace Organic.Host
             }
 
             // Middlewares
+            //Seed Data
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<DataBaseContext>();
+
+                await AdminSeeder.SeedUserAsync(context);
+
+                await ProductCategorySeeder.CategorySeeder(context);
+            }
             app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseMiddleware<ExceptionHandlingMiddleware>();

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Organic.Infrastructure.Context;
 
@@ -11,9 +12,11 @@ using Organic.Infrastructure.Context;
 namespace Organic.Infrastructure.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20250804175952_addBasketmodelItem")]
+    partial class addBasketmodelItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,32 +51,7 @@ namespace Organic.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("addressModels");
-                });
-
-            modelBuilder.Entity("Organic.Domain.Model.Discount.DiscountModel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DiscountPercent")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DurationDays")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("discountModels");
+                    b.ToTable("AddressModel");
                 });
 
             modelBuilder.Entity("Organic.Domain.Model.Order.Basket", b =>
@@ -139,7 +117,7 @@ namespace Organic.Infrastructure.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("orderItemModels");
+                    b.ToTable("OrderItemModel");
                 });
 
             modelBuilder.Entity("Organic.Domain.Model.Order.OrderModel", b =>
@@ -170,7 +148,7 @@ namespace Organic.Infrastructure.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.ToTable("OrderModels");
+                    b.ToTable("OrderModel");
                 });
 
             modelBuilder.Entity("Organic.Domain.Model.Product.ProductCategoryModel", b =>
@@ -215,7 +193,7 @@ namespace Organic.Infrastructure.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImages");
+                    b.ToTable("ProductImageModel");
                 });
 
             modelBuilder.Entity("Organic.Domain.Model.Product.ProductModel", b =>
@@ -232,12 +210,6 @@ namespace Organic.Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("DiscountDuration")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("DiscountPercent")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -323,32 +295,6 @@ namespace Organic.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
-                });
-
-            modelBuilder.Entity("Organic.Domain.Model.User.miniomodel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("miniomodels");
-                });
-
-            modelBuilder.Entity("Organic.Domain.Model.Discount.DiscountModel", b =>
-                {
-                    b.HasOne("Organic.Domain.Model.Product.ProductModel", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Organic.Domain.Model.Order.BasketItemModel", b =>

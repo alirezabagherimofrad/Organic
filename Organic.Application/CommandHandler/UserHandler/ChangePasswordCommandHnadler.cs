@@ -1,8 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Organic.Application.Command.User;
+using Organic.Domain.Interface;
 using Organic.Domain.Interface.UnitOfWorkInterface;
+using Organic.Domain.Interface.UserInterfase;
 using Organic.Domain.Model;
+using Organic.Domain.Model.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +18,13 @@ namespace Organic.Application.CommandHandler.UserHandler
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public ChangePasswordCommandHnadler(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
+        private readonly IGenricQueryRepository<UserModel> _genricQueryRepository;
+
+        public ChangePasswordCommandHnadler(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor, IGenricQueryRepository<UserModel> genricQueryRepository)
         {
             _unitOfWork = unitOfWork;
             _httpContextAccessor = httpContextAccessor;
+            _genricQueryRepository = genricQueryRepository;
         }
 
         public async Task<string> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
@@ -28,7 +34,7 @@ namespace Organic.Application.CommandHandler.UserHandler
                 return "کاربر احراز هویت نشده است.";
 
             var userId = Guid.Parse(currentUserId);
-            var user = await _unitOfWork.UserQueryRepository().GetById(userId);
+            var user = await _genricQueryRepository.GetByIdAsync(userId);
             if (user == null)
             {
                 return "کاربر با این شناسه یافت نشد.";

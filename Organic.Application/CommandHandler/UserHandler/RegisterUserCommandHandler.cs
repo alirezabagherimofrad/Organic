@@ -2,6 +2,7 @@
 using Mapster;
 using MediatR;
 using Organic.Application.Command.User;
+using Organic.Domain.Interface;
 using Organic.Domain.Interface.UnitOfWorkInterface;
 using Organic.Domain.Model.User;
 
@@ -11,10 +12,11 @@ namespace Organic.Application.CommandHandler.UserHandler
     public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, string>
     {
         private readonly IUnitOfWork _unitOfWork;
-        public RegisterUserCommandHandler (IUnitOfWork unitOfWork)
+        private readonly IGenricCommandRepository<UserModel> _userRepository;
+        public RegisterUserCommandHandler (IUnitOfWork unitOfWork, IGenricCommandRepository<UserModel> userRepository)
         {
             _unitOfWork = unitOfWork;
-            
+            _userRepository = userRepository;
         }
 
         public async Task<string> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
@@ -25,7 +27,7 @@ namespace Organic.Application.CommandHandler.UserHandler
                 return "ایمیل تکراری است.";
             }
             var user = request.Adapt<UserModel>();
-            await _unitOfWork.CommandRepository<UserModel>().Add(user);
+            await _userRepository.Add(user);
             await _unitOfWork.SaveChangeAsync();
             return user.Id.ToString();
         }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Organic.Application.Command.User;
+using Organic.Domain.Interface;
 using Organic.Domain.Interface.UnitOfWorkInterface;
 using Organic.Domain.Model.User;
 using System;
@@ -17,12 +18,18 @@ namespace Organic.Application.CommandHandler.UserHandler
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IWebHostEnvironment _env;
+        private readonly IGenricCommandRepository<UserImageModel> _genricCommandRepository;
+        private readonly IGenricQueryRepository<UserImageModel> _genricQueryRepository;
 
-        public DeletedUserImageCommandHandler(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment env)
+
+        public DeletedUserImageCommandHandler(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment env,
+            IGenricQueryRepository<UserImageModel> genricQueryRepository, IGenricCommandRepository<UserImageModel> genricCommandRepository)
         {
             _unitOfWork = unitOfWork;
             _httpContextAccessor = httpContextAccessor;
             _env = env;
+            _genricQueryRepository = genricQueryRepository;
+            _genricCommandRepository = genricCommandRepository;
         }
 
         public async Task<string> Handle(DeletedUserImageCommand request, CancellationToken cancellationToken)
@@ -32,10 +39,10 @@ namespace Organic.Application.CommandHandler.UserHandler
                 return "کاربر احراز هویت نشده است.";
 
             // 2. گرفتن تصویر از دیتابیس
-            var queryRepo = _unitOfWork.QueryRepository<UserImageModel>();
-            var commandRepo = _unitOfWork.CommandRepository<UserImageModel>();
+            //var queryRepo = _unitOfWork.QueryRepository<UserImageModel>();
+            //var commandRepo = _unitOfWork.CommandRepository<UserImageModel>();
 
-            var image = await queryRepo.GetByIdAsync(Guid.Parse(currentUserId));
+            var image = await _genricQueryRepository.GetByIdAsync(Guid.Parse(currentUserId));
             if (image == null)
                 return "تصویری برای حذف یافت نشد.";
 
@@ -49,7 +56,7 @@ namespace Organic.Application.CommandHandler.UserHandler
             }
 
             // 4. حذف رکورد دیتابیس (اختیاری)
-            await commandRepo.Delete(image);
+            await _genricCommandRepository.Delete(image);
             await _unitOfWork.SaveChangeAsync();
 
             return "تصویر با موفقیت حذف شد.";
