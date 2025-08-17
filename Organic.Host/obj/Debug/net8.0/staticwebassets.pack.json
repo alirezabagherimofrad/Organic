@@ -1,0 +1,81 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\code c#\\New folder\\Organic\\Organic.Host\\wwwroot\\images\\products\\2db2703e-424f-4b79-91bf-bfe2171fcc82.png",
+      "PackagePath": "staticwebassets\\images\\products\\2db2703e-424f-4b79-91bf-bfe2171fcc82.png"
+    },
+    {
+      "Id": "D:\\code c#\\New folder\\Organic\\Organic.Host\\wwwroot\\images\\products\\35fe1d73-4f9b-4115-a976-cae9c6c723ed.png",
+      "PackagePath": "staticwebassets\\images\\products\\35fe1d73-4f9b-4115-a976-cae9c6c723ed.png"
+    },
+    {
+      "Id": "D:\\code c#\\New folder\\Organic\\Organic.Host\\wwwroot\\images\\products\\379ad056-d772-4c35-ad42-f002a2e2c7ff.png",
+      "PackagePath": "staticwebassets\\images\\products\\379ad056-d772-4c35-ad42-f002a2e2c7ff.png"
+    },
+    {
+      "Id": "D:\\code c#\\New folder\\Organic\\Organic.Host\\wwwroot\\images\\products\\63cc8167-e4af-4b64-bfe6-fc26c8283e45.png",
+      "PackagePath": "staticwebassets\\images\\products\\63cc8167-e4af-4b64-bfe6-fc26c8283e45.png"
+    },
+    {
+      "Id": "D:\\code c#\\New folder\\Organic\\Organic.Host\\wwwroot\\images\\products\\84a62fdb-ef47-4bbd-93f6-09358702869c.png",
+      "PackagePath": "staticwebassets\\images\\products\\84a62fdb-ef47-4bbd-93f6-09358702869c.png"
+    },
+    {
+      "Id": "D:\\code c#\\New folder\\Organic\\Organic.Host\\wwwroot\\images\\products\\d22861e0-c1ab-4919-ad4d-6cc0052f1f86.png",
+      "PackagePath": "staticwebassets\\images\\products\\d22861e0-c1ab-4919-ad4d-6cc0052f1f86.png"
+    },
+    {
+      "Id": "D:\\code c#\\New folder\\Organic\\Organic.Host\\wwwroot\\images\\products\\e82998b6-14d6-4c78-a466-7dc360ed51df.png",
+      "PackagePath": "staticwebassets\\images\\products\\e82998b6-14d6-4c78-a466-7dc360ed51df.png"
+    },
+    {
+      "Id": "D:\\code c#\\New folder\\Organic\\Organic.Host\\wwwroot\\uploads\\32338c63-0c45-44d9-9b96-1f1f625fa6e3_Screenshot 2025-07-21 225834.png",
+      "PackagePath": "staticwebassets\\uploads\\32338c63-0c45-44d9-9b96-1f1f625fa6e3_Screenshot 2025-07-21 225834.png"
+    },
+    {
+      "Id": "D:\\code c#\\New folder\\Organic\\Organic.Host\\wwwroot\\userImages\\0ff9ea06-806f-4b87-bd60-35644d516d52.png",
+      "PackagePath": "staticwebassets\\userImages\\0ff9ea06-806f-4b87-bd60-35644d516d52.png"
+    },
+    {
+      "Id": "D:\\code c#\\New folder\\Organic\\Organic.Host\\wwwroot\\userImages\\7afe6ed3-c2ae-429d-b31a-9107ba8d4286.jpeg",
+      "PackagePath": "staticwebassets\\userImages\\7afe6ed3-c2ae-429d-b31a-9107ba8d4286.jpeg"
+    },
+    {
+      "Id": "D:\\code c#\\New folder\\Organic\\Organic.Host\\wwwroot\\userImages\\a0b9b474-6b4e-4b4c-af49-965652171d90.jpeg",
+      "PackagePath": "staticwebassets\\userImages\\a0b9b474-6b4e-4b4c-af49-965652171d90.jpeg"
+    },
+    {
+      "Id": "D:\\code c#\\New folder\\Organic\\Organic.Host\\wwwroot\\userImages\\bf6d72d2-efb8-43ae-92a9-fe3c38ce4031.jpeg",
+      "PackagePath": "staticwebassets\\userImages\\bf6d72d2-efb8-43ae-92a9-fe3c38ce4031.jpeg"
+    },
+    {
+      "Id": "D:\\code c#\\New folder\\Organic\\Organic.Host\\wwwroot\\userImages\\c7d91900-2a8d-4b86-91fa-02a4305d5601.jpeg",
+      "PackagePath": "staticwebassets\\userImages\\c7d91900-2a8d-4b86-91fa-02a4305d5601.jpeg"
+    },
+    {
+      "Id": "D:\\code c#\\New folder\\Organic\\Organic.Host\\wwwroot\\userImages\\f35362a8-756f-45db-8f66-2e3590c42879.jpeg",
+      "PackagePath": "staticwebassets\\userImages\\f35362a8-756f-45db-8f66-2e3590c42879.jpeg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Organic.Host.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Organic.Host.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Organic.Host.props",
+      "PackagePath": "build\\Organic.Host.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Organic.Host.props",
+      "PackagePath": "buildMultiTargeting\\Organic.Host.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Organic.Host.props",
+      "PackagePath": "buildTransitive\\Organic.Host.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Organic.Host.props" />
+</Project>
