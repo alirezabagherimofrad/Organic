@@ -71,7 +71,7 @@ namespace Organic.Application.CommandHandler.UserHandler
                     productStatus = FavoriteslistModel.checkproduct.Available;
                 }
 
-                var Addproduct = new FavoriteslistModel(user.Id, request.ProductId, checkproduct.Name, productStatus);
+                var Addproduct = new FavoriteslistModel(user.Id, request.ProductId, checkproduct.Name, productStatus, checkproduct.Price);
                 await _FavoritCommandRepository.Add(Addproduct);
                 await _unitOfWork.SaveChangeAsync();
                 return "کالا در فهرست علاقه مندی ها قرار گرفت.";

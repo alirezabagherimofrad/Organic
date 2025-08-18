@@ -8,7 +8,7 @@ using Organic.Application.Command.MessageCommand;
 using Organic.Application.Command.User;
 using static Organic.Application.DTO.LoginResultDto;
 using static Organic.Application.DTO.UpdateRegisterDTO;
-using static Organic.Application.DTO.UserRegisterDTO;
+using static Organic.Application.DTO.complete_informationDTO;
 
 namespace Organic.Host.Controllers
 {
@@ -22,16 +22,24 @@ namespace Organic.Host.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost("Register")]
-        public async Task<IActionResult> RegisterUser([FromBody] UserRegisterParameter userRegisterParameter)
+        [HttpPost("complete_information")]
+        public async Task<IActionResult> complete_information([FromBody] complete_informationParameter complete_InformationParameter)
         {
-            var command = userRegisterParameter.Adapt<RegisterUserCommand>();
+            var command = complete_InformationParameter.Adapt<complete_informationCommand>();
             var result = await _mediator.Send(command);
             return Ok(result);
         }
 
+        [HttpPost("signup")]
+        public async Task<IActionResult> signup([FromBody]RegisterUserCommand registerUserCommand)
+        {
+            //var command = registerUserCommand.Adapt(registerUserCommand);
+            var result = await _mediator.Send(registerUserCommand);
+            return Ok(result);
+        }
+
         [Authorize]
-        [HttpPut("Update")]
+        [HttpPut("update")]
         public async Task<IActionResult> UpdtaeUser([FromBody] UpdateUserParameter updateuserParameter)
         {
             var command = updateuserParameter.Adapt<UpdateRegisterCommand>();
@@ -39,21 +47,21 @@ namespace Organic.Host.Controllers
             return Ok(result);
         }
 
-        [HttpPost("Login")]
+        [HttpPost("login")]
         public async Task<IActionResult> LoginUser([FromBody] LoginUserCommand loginUserCommand)
         {
             var result = await _mediator.Send(loginUserCommand);
             return Ok(result);
         }
 
-        [HttpPost("Request_Otp")]
+        [HttpPost("request_otp")]
         public async Task<IActionResult> LoginUser([FromBody] RequestOtpCommand requestOtpCommand)
         {
             var result = await _mediator.Send(requestOtpCommand);
             return Ok(result);
         }
 
-        [HttpPut("Forget_Password")]
+        [HttpPut("forget_password")]
         public async Task<IActionResult> ForgetPassword([FromBody] ForgetPasswordCommand forgetPasswordCommand)
         {
             var result = await _mediator.Send(forgetPasswordCommand);
@@ -61,7 +69,7 @@ namespace Organic.Host.Controllers
         }
 
         [Authorize]
-        [HttpPut("Change_Password")]
+        [HttpPut("change_password")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordCommand changePasswordCommand)
         {
             var result = await _mediator.Send(changePasswordCommand);
@@ -69,7 +77,7 @@ namespace Organic.Host.Controllers
         }
 
         [Authorize]
-        [HttpPost("Upload_Image")]
+        [HttpPost("upload_image")]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> UploadImage([FromForm] UplodeUserImageCommand uplodeUserImageCommand)
         {
@@ -78,7 +86,7 @@ namespace Organic.Host.Controllers
         }
 
         [Authorize]
-        [HttpPost("Add_Address")]
+        [HttpPost("add_address")]
         public async Task<IActionResult> AddAddress([FromBody] AddAddressCommand addAddressCommand)
         {
             var result = await _mediator.Send(addAddressCommand);
@@ -86,7 +94,7 @@ namespace Organic.Host.Controllers
         }
 
         [Authorize]
-        [HttpPut("Update_Address")]
+        [HttpPut("update_address")]
         public async Task<IActionResult> UpdateDatabase([FromBody] UpdateAddressCommand updateAddressCommand)
         {
             var result = await _mediator.Send(updateAddressCommand);
@@ -94,7 +102,7 @@ namespace Organic.Host.Controllers
         }
 
         [Authorize]
-        [HttpPost("Send_message")]
+        [HttpPost("send_message")]
         public async Task<IActionResult> sendmessage([FromBody] MessageCommand messageCommand)
         {
             var result = await _mediator.Send(messageCommand);
@@ -110,7 +118,7 @@ namespace Organic.Host.Controllers
         }
 
         //[Authorize]
-        [HttpPost("Faviorit")]
+        [HttpPost("faviorit")]
         public async Task<IActionResult> Faviorit([FromBody] FavoriteslistCommand favoriteslistCommand)
         {
             var result = await _mediator.Send(favoriteslistCommand);

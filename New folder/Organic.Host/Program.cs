@@ -61,10 +61,10 @@ namespace Organic.Host
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             // ثبت MediatR
-            builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommandHandler).Assembly));
+            builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(complete_informationCommandHandler).Assembly));
 
             //command , commandHandler
-            builder.Services.AddScoped<IRequestHandler<RegisterUserCommand, string>, RegisterUserCommandHandler>();
+            builder.Services.AddScoped<IRequestHandler<complete_informationCommand, string>, complete_informationCommandHandler>();
             builder.Services.AddScoped<IRequestHandler<LoginUserCommand, LoginResultDto>, LoginUserCommandHandler>();
             builder.Services.AddScoped<IRequestHandler<UplodeUserImageCommand, string>, UplodeUserImageCommandHandler>();
 
@@ -141,7 +141,7 @@ namespace Organic.Host
             });
 
 
-            TypeAdapterConfig<RegisterUserCommand, UserModel>.NewConfig()
+            TypeAdapterConfig<complete_informationCommand, UserModel>.NewConfig()
                 .ConstructUsing(src => new UserModel(
                     src.First_Name,
                     src.Last_Name,
@@ -170,13 +170,6 @@ namespace Organic.Host
                     src.Email,
                     src.Description
                 ));
-
-            //TypeAdapterConfig<FavoriteslistCommand, FavoriteslistModel>.NewConfig()    // بعدا بررسی شود.
-            //    .ConstructUsing(src => new FavoriteslistModel(
-            //        src.UserId,
-            //        src.ProductId
-            //        src.
-            //    ));
 
             builder.Services.AddHttpContextAccessor();
 

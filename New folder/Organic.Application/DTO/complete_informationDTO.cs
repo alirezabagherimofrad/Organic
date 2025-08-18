@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Organic.Application.DTO
 {
-    public class UserRegisterDTO
+    public class complete_informationDTO
     {
         public string First_Name { get; set; }
         public string Last_Name { get; set; }
@@ -16,7 +16,7 @@ namespace Organic.Application.DTO
         public string Password { get; set; }
         public SelectGender Gender { get; set; }
 
-        public sealed record UserRegisterParameter
+        public sealed record complete_informationParameter
             (
                 string First_Name,
                 string Last_Name,
