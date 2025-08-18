@@ -38,6 +38,15 @@ namespace Organic.Host.Controllers
             return Ok(result);
         }
 
+        [HttpPost("singinwhitotp")]
+        public async Task<IActionResult> singinwhitotp([FromBody] RegisterWhitOtpCommand registerWhitOtpCommand)
+        {
+            //var command = registerUserCommand.Adapt(registerUserCommand);
+            var result = await _mediator.Send(registerWhitOtpCommand);
+            return Ok(result);
+        }
+
+
         [Authorize]
         [HttpPut("update")]
         public async Task<IActionResult> UpdtaeUser([FromBody] UpdateUserParameter updateuserParameter)

@@ -9,8 +9,10 @@ namespace Organic.Application.Command.User
 {
    public class ForgetPasswordCommand : IRequest<string>
     {
-        public string Otp { get; set; }
-        public string PhoneNumber { get; set; }
-        public string NewPassword { get; set; }
+        //public string Otp { get; set; }
+        //public string PhoneNumber { get; set; }
+        //public string NewPassword { get; set; }
+
+        public string Email { get; set; }
     }
 }

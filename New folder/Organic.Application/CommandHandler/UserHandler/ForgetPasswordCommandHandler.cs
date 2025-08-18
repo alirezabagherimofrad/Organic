@@ -24,20 +24,24 @@ namespace Organic.Application.CommandHandler.UserHandler
 
         public async Task<string> Handle(ForgetPasswordCommand request, CancellationToken cancellationToken)
         {
-            var user = await _getUserQueryRepository.GetByPhoneNumber(request.PhoneNumber);
+            var user = await _getUserQueryRepository.GetByEmail(request.Email);
             if(user == null)
             {
-                return "شماره موبایل یافت نشد.";
+                return "ایمیل وارد شده یافت نشد.";
             }
 
-            if (user.Otp != request.Otp || user.OtpExpiry < DateTime.UtcNow)
-            {
-                return "کد تایید معتبر نیست.";
-            }
+            //if (user.Otp != request.Otp || user.OtpExpiry < DateTime.UtcNow)
+            //{
+            //    return "کد تایید معتبر نیست.";
+            //}
 
-            user.SetNewPassword(request.NewPassword);
+            var otp = new Random().Next(100000, 999999).ToString();
+            var OtpExpiry = DateTime.UtcNow.AddMinutes(10);
+
+            //user.SetNewPassword(request.NewPassword);
+            user.SetOtp(otp, OtpExpiry);
             await _unitOfWork.SaveChangeAsync();
-            return "تغییر رمز عبور با موفقیت انجام شد.";
+            return "کد یکبار مصرف برای شما ارسال شد.";
         }
     }
 }

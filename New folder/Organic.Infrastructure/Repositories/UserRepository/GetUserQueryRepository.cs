@@ -29,5 +29,8 @@ namespace Organic.Infrastructure.Repositories.UserRepository
 
         public async Task<UserModel?> GetByPhoneNumber(string phonenumber) =>
             await _context.User.FirstOrDefaultAsync(x => x.PhoneNumber == phonenumber);
+
+        public async Task<UserModel?> GetByOtp(string otp) =>
+            await _context.User.FirstOrDefaultAsync(x => x.Otp == otp);
     }
 }
