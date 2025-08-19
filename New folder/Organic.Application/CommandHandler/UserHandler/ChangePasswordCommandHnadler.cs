@@ -44,6 +44,11 @@ namespace Organic.Application.CommandHandler.UserHandler
             {
                 return "رمز فعلی اشتباه است.";
             }
+
+            if(user.Password != request.Repeat_password)
+            {
+                return "تکرار رمز عبور جدید اشتباه است.";
+            }
             user.SetNewPassword(request.NewPassword);
             await _unitOfWork.SaveChangeAsync();
             return "رمز عبور با موفقیت تغییر کرد.";

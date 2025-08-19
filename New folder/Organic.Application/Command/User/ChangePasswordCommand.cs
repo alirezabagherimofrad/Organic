@@ -12,5 +12,6 @@ namespace Organic.Application.Command.User
         public string Otp { get; set; }
         public string OldPassword { get; set; }
         public string NewPassword { get; set; }
+        public string Repeat_password { get; set; }
     }
 }
