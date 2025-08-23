@@ -3,12 +3,13 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Organic.Application.Command;
 using Organic.Application.Command.Message;
 using Organic.Application.Command.MessageCommand;
 using Organic.Application.Command.User;
+using static Organic.Application.DTO.complete_informationDTO;
 using static Organic.Application.DTO.LoginResultDto;
 using static Organic.Application.DTO.UpdateRegisterDTO;
-using static Organic.Application.DTO.complete_informationDTO;
 
 namespace Organic.Host.Controllers
 {
@@ -131,6 +132,13 @@ namespace Organic.Host.Controllers
         public async Task<IActionResult> Faviorit([FromBody] FavoriteslistCommand favoriteslistCommand)
         {
             var result = await _mediator.Send(favoriteslistCommand);
+            return Ok(result);
+        }
+        //[Authorize]
+        [HttpPost("informationsend")]
+        public async Task<IActionResult> sendinformation([FromBody] SendInformationCommand sendInformationCommand)
+        {
+            var result = await _mediator.Send(sendInformationCommand);
             return Ok(result);
         }
     }

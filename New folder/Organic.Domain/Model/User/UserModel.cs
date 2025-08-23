@@ -55,6 +55,14 @@ namespace Organic.Domain.Model.User
         {
             Password = password;
         }
+
+
+        public void sendorderinformation(List<AddressModel> address, string email, string phonenumber)
+        {
+            Addresses = address ;
+            Email = email;
+            PhoneNumber = phonenumber;
+        }
     }
     public enum SelectGender
     {
