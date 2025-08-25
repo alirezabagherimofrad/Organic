@@ -10,10 +10,8 @@ using System.Threading.Tasks;
 
 namespace Organic.Application.Command
 {
-    public class SendInformationCommand : IRequest<SendInformationResult>
+    public class SendInformationCommand : IRequest<SendInformationDTO>
     {
-        public List<AddressModel> Address { get; set; }
-        public string Email { get; set; }
-        public string Phonenumber { get; set; }
+
     }
 }

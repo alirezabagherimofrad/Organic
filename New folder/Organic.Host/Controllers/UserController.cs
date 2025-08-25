@@ -135,10 +135,14 @@ namespace Organic.Host.Controllers
             return Ok(result);
         }
         //[Authorize]
-        [HttpPost("informationsend")]
-        public async Task<IActionResult> sendinformation([FromBody] SendInformationCommand sendInformationCommand)
+        [HttpGet("informationsend")]
+        public async Task<IActionResult> sendinformation()
         {
-            var result = await _mediator.Send(sendInformationCommand);
+            var command = new SendInformationCommand();
+
+            // Send با command
+            var result = await _mediator.Send(command);
+
             return Ok(result);
         }
     }

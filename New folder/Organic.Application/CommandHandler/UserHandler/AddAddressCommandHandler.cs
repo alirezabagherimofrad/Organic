@@ -44,7 +44,7 @@ namespace Organic.Application.CommandHandler.UserHandler
                 return "کاربر یافت نشد.";
             }
 
-            var address = new AddressModel(request.City, request.FullAddress, request.PostalCode, userId);
+            var address = new AddressModel(request.City, request.FullAddress, request.PostalCode, userId, request.currentaddress);
             await _AddressCommandRepository.Add(address);
             await _unitOfWork.SaveChangeAsync();
             return "ادرس با موفقیت ثبت شد.";

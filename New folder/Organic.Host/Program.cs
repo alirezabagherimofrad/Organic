@@ -140,7 +140,7 @@ namespace Organic.Host
                 });
             });
 
-
+            //config mapster
             TypeAdapterConfig<complete_informationCommand, UserModel>.NewConfig()
                 .ConstructUsing(src => new UserModel(
                     src.First_Name,
@@ -170,6 +170,7 @@ namespace Organic.Host
                     src.Email,
                     src.Description
                 ));
+
 
             builder.Services.AddHttpContextAccessor();
 

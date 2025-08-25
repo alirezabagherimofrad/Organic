@@ -13,6 +13,7 @@ namespace Organic.Application.Command.User
         public string City { get; set; }
         public string PostalCode { get; set; }
         public string FullAddress { get; set; }
+        public bool currentaddress { get; set; }
 
     }
 }
