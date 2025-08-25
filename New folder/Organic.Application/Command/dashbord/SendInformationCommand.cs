@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Organic.Application.Command
+namespace Organic.Application.Command.dashbord
 {
     public class SendInformationCommand : IRequest<SendInformationDTO>
     {

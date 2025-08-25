@@ -1,7 +1,7 @@
 ﻿using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using Organic.Application.Command;
+using Organic.Application.Command.dashbord;
 using Organic.Application.DTO;
 using Organic.Domain.Interface;
 using Organic.Domain.Interface.UnitOfWorkInterface;
@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Organic.Application.CommandHandler
+namespace Organic.Application.CommandHandler.dashbord
 {
     public class SendInformationCommandHandler : IRequestHandler<SendInformationCommand, SendInformationDTO>
     {

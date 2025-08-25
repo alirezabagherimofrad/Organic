@@ -134,16 +134,5 @@ namespace Organic.Host.Controllers
             var result = await _mediator.Send(favoriteslistCommand);
             return Ok(result);
         }
-        //[Authorize]
-        [HttpGet("informationsend")]
-        public async Task<IActionResult> sendinformation()
-        {
-            var command = new SendInformationCommand();
-
-            // Send با command
-            var result = await _mediator.Send(command);
-
-            return Ok(result);
-        }
     }
 }
